@@ -22,5 +22,8 @@
       "@usecases/*": ["./src/usecases/*"],
       "@entities/*": ["./src/entities/*"]
     }
-  }
+  },
+  "include": [
+    "src/**/*"
+  ]
 }
