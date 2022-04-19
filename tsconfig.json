@@ -17,6 +17,7 @@
     "skipLibCheck": true,                                 
     "baseUrl": ".",
     "paths": {
+      "@config/*": ["./src/config/*"],
       "@providers/*": ["./src/providers/*"],
       "@repositories/*": ["./src/repositories/*"],
       "@usecases/*": ["./src/usecases/*"],
