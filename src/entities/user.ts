@@ -1,8 +1,8 @@
 
-export class User {
-    
-    id: string
-    name: string
-    email: string
-    
+export class Agente {
+
+	id: string;
+	name: string;
+	email: string;
+
 }

@@ -1,10 +1,12 @@
-import { Router } from "express";
-import { createUserController } from "./useCases/createUser/Register";
+import { Router } from 'express';
+import { createUserController } from './useCases/createUser/Register';
 
 const router = Router();
 
-router.post('/users', async (request, response) => {
-    return await createUserController.handle(request, response);
-})
+router.get('/', (request, response) => response.json({ message: 'services-agente-parceiro-magalu' }));
 
-export { router }
+router.post('/users', async (request, response) => {
+	return await createUserController.handle(request, response);
+});
+
+export { router };

@@ -1,7 +1,8 @@
-import express from 'express'
+import express, { application } from 'express';
+import { router } from './routes';
 
-const app = express()
+const app = express();
 
-app.get('/', (request, response) => response.json({ message: 'services-agente-parceiro-magalu'}))
+app.routes(router);
 
-app.listen(3333)
+app.listen(3333);
