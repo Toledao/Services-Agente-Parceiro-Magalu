@@ -1,15 +1,15 @@
 export interface IAddress {
-    email: string, 
-    name: string
+	email: string,
+	name: string
 }
 
 export interface IMessage {
-    to: IAddress;
-    from: IAddress;
-    subject: string;
-    body: string;
+	to: IAddress;
+	from: IAddress;
+	subject: string;
+	body: string;
 }
 
 export interface IEmailProvider {
-    sendEmail(message: IMessage): Promise<void>;
+	sendEmail(message: IMessage): Promise<void>;
 }
