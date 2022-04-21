@@ -32,7 +32,7 @@ export class AgentesController {
 
 		try {
 			const agentes = await this.getAgenteUseCase.execute({ id, nome, email, cpf, dataCriacao });
-			if (agentes.length > 0)
+			if (agentes?.length > 0)
 				return response.status(200).send(agentes);
 			return response.status(204).send([]);
 

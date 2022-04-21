@@ -1,6 +1,5 @@
-import { Agente } from '@entities/agente';
 import { IAgentesRepository } from '@repositories/IAgentesRepository';
-import { IAgenteQueryRequestDTO } from './agentesDTO';
+import { AgenteQueryRequestDTO, AgenteResponseDTO } from './agentesDTO';
 
 export class GetAgenteUseCase {
 
@@ -8,12 +7,15 @@ export class GetAgenteUseCase {
 		private readonly agentesRepository: IAgentesRepository
 	) { }
 
-	async execute(data?: IAgenteQueryRequestDTO): Promise<Agente[]> {
+	async execute(data?: AgenteQueryRequestDTO): Promise<AgenteResponseDTO[]> {
 
-		if (!data?.id) {
-			return await this.agentesRepository.getList();
+		if (data?.id === undefined || data?.id === '') {
+			const ret = await this.agentesRepository.getList();
+			return ret.length === 0 ? [] : ret.map(x => new AgenteResponseDTO(x));
 		}
 
-		return Array<Agente>(await this.agentesRepository.getById(data.id));
+		const ret = await this.agentesRepository.getById(data.id);
+
+		return !ret?.id ? [] : Array<AgenteResponseDTO>(new AgenteResponseDTO(ret));
 	}
 }

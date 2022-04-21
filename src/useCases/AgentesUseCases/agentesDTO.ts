@@ -1,4 +1,6 @@
-export class IAgenteQueryRequestDTO {
+import { Agente } from '@entities/agente';
+
+export class AgenteQueryRequestDTO {
 	id: string;
 	nome: string;
 	email: string;
@@ -6,7 +8,7 @@ export class IAgenteQueryRequestDTO {
 	dataCriacao: Date;
 }
 
-export class IAgenteSaveRequestDTO {
+export class AgenteSaveRequestDTO {
 	id?: string;
 	nome: string;
 	email: string;
@@ -14,9 +16,16 @@ export class IAgenteSaveRequestDTO {
 	senha: string;
 }
 
-export class IAgenteResponseDTO {
+export class AgenteResponseDTO {
 	id: string;
 	nome: string;
 	email: string;
 	cpf: string;
+
+	constructor(props: Agente) {
+		this.id = props?.id;
+		this.nome = props?.nome;
+		this.email = props?.email;
+		this.cpf = props?.cpf;
+	}
 }

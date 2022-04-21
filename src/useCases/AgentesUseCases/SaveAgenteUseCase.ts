@@ -1,6 +1,6 @@
 import { Agente } from '@entities/agente';
 import { IAgentesRepository } from '@repositories/IAgentesRepository';
-import { IAgenteSaveRequestDTO, IAgenteResponseDTO } from './agentesDTO';
+import { AgenteSaveRequestDTO, AgenteResponseDTO } from './agentesDTO';
 import { hash } from 'bcryptjs';
 
 export class SaveAgenteUseCase {
@@ -10,13 +10,7 @@ export class SaveAgenteUseCase {
 	) { }
 
 
-	async execute(data: IAgenteSaveRequestDTO): Promise<IAgenteResponseDTO> {
-
-		const agenteExiste = await this.agentesRepository.findByEmail(data.email);
-
-		if (agenteExiste) {
-			throw new Error('Agente já existente.');
-		}
+	async execute(data: AgenteSaveRequestDTO): Promise<AgenteResponseDTO> {
 
 		const agente = new Agente({
 			...data,
@@ -25,6 +19,11 @@ export class SaveAgenteUseCase {
 		});
 
 		if (!data.id) {
+			const agenteExiste = await this.agentesRepository.findByEmail(data.email);
+
+			if (agenteExiste) {
+				throw new Error('Agente já existente.');
+			}
 			return await this.agentesRepository.create(agente);
 		}
 		else {

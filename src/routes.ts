@@ -1,14 +1,16 @@
 import { RegisterAgentesController } from '@usecases/AgentesUseCases/Register';
-import { Router } from 'express';
+import { Request, Response, Router } from 'express';
 
 const router = Router();
 
 router.get('/', (request, response) => response.json({ message: 'services-agente-parceiro-magalu' }));
 
-router.post('/Agente', RegisterAgentesController.Save);
-router.put('/Agente', RegisterAgentesController.Save);
-router.delete('/Agente', RegisterAgentesController.Delete);
-router.get('/Agente', RegisterAgentesController.GetAll);
-router.get('/Agente/:id', RegisterAgentesController.Get);
+//#region AgentesUseCase
+router.put('/Agente', async (request: Request, response: Response) => await RegisterAgentesController.Save(request, response));
+router.post('/Agente', async (request: Request, response: Response) => await RegisterAgentesController.Save(request, response));
+router.get('/Agente', async (request: Request, response: Response) => await RegisterAgentesController.GetAll(request, response));
+router.get('/Agente/:id', async (request: Request, response: Response) => await RegisterAgentesController.Get(request, response));
+router.delete('/Agente', async (request: Request, response: Response) => await RegisterAgentesController.Delete(request, response));
+//#endregion
 
 export { router };
