@@ -8,9 +8,9 @@ export class GetAgenteUseCase {
 		private readonly agentesRepository: IAgentesRepository
 	) { }
 
-	async execute(data: IAgenteQueryRequestDTO): Promise<Agente[]> {
+	async execute(data?: IAgenteQueryRequestDTO): Promise<Agente[]> {
 
-		if (!data.id) {
+		if (!data?.id) {
 			return await this.agentesRepository.getList();
 		}
 

@@ -1,15 +1,5 @@
 import { Env } from '@config/environment';
-import { ErrorHandling } from '@middlewares/errorHandling';
-import express, { json } from 'express';
-import { router } from './routes';
-
-const app = express();
-
-app.use(json());
-
-app.use(router);
-
-app.use(ErrorHandling);
+import { app } from './app';
 
 app.listen(Env.PORT, () => {
 	if (!Env.PORT)

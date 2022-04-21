@@ -7,7 +7,7 @@ export class IAgenteQueryRequestDTO {
 }
 
 export class IAgenteSaveRequestDTO {
-	id: string;
+	id?: string;
 	nome: string;
 	email: string;
 	cpf: string;

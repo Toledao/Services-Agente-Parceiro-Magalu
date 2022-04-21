@@ -20,7 +20,7 @@ export class SaveAgenteUseCase {
 
 		const agente = new Agente({
 			...data,
-			senha: !data.senha ? null : await hash(data.senha, 8),
+			senha: !data?.senha ? null : await hash(data.senha, 8),
 			dataCriacao: new Date()
 		});
 

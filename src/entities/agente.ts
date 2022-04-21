@@ -12,5 +12,4 @@ export class Agente extends Entity {
 		super(id);
 		Object.assign(this, props);
 	}
-
 }

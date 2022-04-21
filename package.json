@@ -40,6 +40,7 @@
 		"uuidv4": "^6.2.13"
 	},
 	"scripts": {
+		"dev:debug": "tsnd -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify --inspect=4321 src/server.ts",
 		"dev": "tsnd -r tsconfig-paths/register --respawn --transpile-only --ignore-watch node_modules --no-notify src/server.ts",
 		"start": "node dist/server.js",
 		"test": "jest",

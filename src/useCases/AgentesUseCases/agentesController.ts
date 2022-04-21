@@ -11,6 +11,20 @@ export class AgentesController {
 		private deleteAgenteUseCase: DeleteAgenteUseCase,
 	) { }
 
+	async GetAll(request: Request, response: Response): Promise<Response> {
+		try {
+			const agentes = await this.getAgenteUseCase.execute();
+			if (agentes.length > 0)
+				return response.status(200).send(agentes);
+			return response.status(204).send([]);
+
+		} catch (error) {
+			return response.status(400).json({
+				message: error.message || 'Unexpected error.'
+			});
+		}
+	}
+
 	async Get(request: Request, response: Response): Promise<Response> {
 
 		const { nome, email, cpf, dataCriacao } = request.body;
