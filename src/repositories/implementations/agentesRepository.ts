@@ -1,13 +1,13 @@
 import { Agente } from '@entities/agente';
 import { IAgentesRepository } from '@repositories/IAgentesRepository';
-import { DtoSearchSegments, FilterModel } from '@repositories/SearchDTO';
+import { DtoSearchSegments } from '@repositories/SearchDTO';
 import { Repository } from './repository';
 
 export class AgentesRepository extends Repository<Agente> implements IAgentesRepository {
 
 	async findByEmail(email: string): Promise<Agente> {
 
-		const agente = await this.clientPrisma.agente.findFirst({
+		const agente = await this.PrismaClient.agente.findFirst({
 			where: {
 				email
 			}
@@ -18,7 +18,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 
 	async create({ cpf, email, nome, senha }: Agente): Promise<Agente> {
 
-		const agente = await this.clientPrisma.agente.create({
+		const agente = await this.PrismaClient.agente.create({
 			data: {
 				cpf,
 				email,
@@ -32,7 +32,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 
 	async update({ id, cpf, email, nome, senha }: Agente): Promise<Agente> {
 
-		const agente = await this.clientPrisma.agente.update({
+		const agente = await this.PrismaClient.agente.update({
 			where: {
 				id
 			},
@@ -48,11 +48,11 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 	}
 
 	async getList(): Promise<Agente[]> {
-		return await this.clientPrisma.agente.findMany();
+		return await this.PrismaClient.agente.findMany();
 	}
 
 	async getById(id: string): Promise<Agente> {
-		const agente = await this.clientPrisma.agente.findFirst({
+		const agente = await this.PrismaClient.agente.findFirst({
 			where: {
 				id
 			}
@@ -62,7 +62,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 	}
 
 	async delete(id: string): Promise<boolean> {
-		await this.clientPrisma.agente.delete({
+		await this.PrismaClient.agente.delete({
 			where: {
 				id
 			}
@@ -74,7 +74,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 	async getByFilter(objFilter: Agente): Promise<Agente[]> {
 
 		const { skip, take, where, orderBy } = this.filterService.CreateFilter(new DtoSearchSegments(objFilter));
-		return this.clientPrisma.agente.findMany({
+		return this.PrismaClient.agente.findMany({
 			skip,
 			take,
 			where: {
