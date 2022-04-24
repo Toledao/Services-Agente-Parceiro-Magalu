@@ -1,7 +1,8 @@
-import express from 'express'
+import { Env } from '@config/environment';
+import { app } from './app';
 
-const app = express()
-
-app.get('/', (request, response) => response.json({ message: 'services-agente-parceiro-magalu'}))
-
-app.listen(3333)
+app.listen(Env.PORT, () => {
+	if (!Env.PORT)
+		throw new Error('Port is undefined.');
+	console.log(`server runnig in ${Env.PORT}`);
+});
