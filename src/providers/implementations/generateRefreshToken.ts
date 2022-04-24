@@ -11,7 +11,7 @@ export class GenerateRefreshToken {
 		Env.SECRETTOKEN,
 		{ 
 			subject: userId,
-			expiresIn: 120
+			expiresIn: 1800
 		});
 		return generateRefreshToken;
 	}
