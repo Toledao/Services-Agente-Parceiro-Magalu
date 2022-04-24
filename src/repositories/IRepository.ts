@@ -8,7 +8,7 @@ export interface IRepository<T extends Entity> {
 
 	getList(): Promise<T[]>;
 
-	getList(objFilter: T): Promise<T[]>;
+	getByFilter(objFilter: T): Promise<T[]>;
 
 	getById(id: string): Promise<T>;
 
