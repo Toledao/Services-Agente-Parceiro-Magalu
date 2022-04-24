@@ -14,7 +14,7 @@ export class SaveAgenteUseCase {
 
 		const agente = new Agente({
 			...data,
-			senha: !data?.senha ? null : await hash(data.senha, 8),
+			senha: !data?.senha ? undefined : await hash(data.senha, 8),
 			dataCriacao: new Date()
 		});
 
@@ -24,10 +24,10 @@ export class SaveAgenteUseCase {
 			if (agenteExiste) {
 				throw new Error('Agente já existente.');
 			}
-			return await this.agentesRepository.create(agente);
+			return new AgenteResponseDTO(await this.agentesRepository.create(agente));
 		}
 		else {
-			return await this.agentesRepository.update(agente);
+			return new AgenteResponseDTO(await this.agentesRepository.update(agente));
 		}
 	}
 }
