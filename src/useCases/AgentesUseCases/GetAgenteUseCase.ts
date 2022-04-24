@@ -1,3 +1,4 @@
+import { Agente } from '@entities/agente';
 import { IAgentesRepository } from '@repositories/IAgentesRepository';
 import { AgenteQueryRequestDTO, AgenteResponseDTO } from './agentesDTO';
 
@@ -10,7 +11,7 @@ export class GetAgenteUseCase {
 	async execute(data?: AgenteQueryRequestDTO): Promise<AgenteResponseDTO[]> {
 
 		if (data?.id === undefined || data?.id === '') {
-			const ret = await this.agentesRepository.getList();
+			const ret = await this.agentesRepository.getByFilter(<Agente>{ ...data });
 			return ret.length === 0 ? [] : ret.map(x => new AgenteResponseDTO(x));
 		}
 

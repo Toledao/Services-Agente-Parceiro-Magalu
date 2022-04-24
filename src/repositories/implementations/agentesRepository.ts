@@ -1,5 +1,6 @@
 import { Agente } from '@entities/agente';
 import { IAgentesRepository } from '@repositories/IAgentesRepository';
+import { DtoSearchSegments, FilterModel } from '@repositories/SearchDTO';
 import { Repository } from './repository';
 
 export class AgentesRepository extends Repository<Agente> implements IAgentesRepository {
@@ -68,5 +69,18 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 		});
 
 		return !await this.getById(id);
+	}
+
+	async getByFilter(objFilter: Agente): Promise<Agente[]> {
+
+		const { skip, take, where, orderBy } = this.filterService.CreateFilter(new DtoSearchSegments(objFilter));
+		return this.clientPrisma.agente.findMany({
+			skip,
+			take,
+			where: {
+				...where
+			},
+			orderBy: orderBy,
+		});
 	}
 }

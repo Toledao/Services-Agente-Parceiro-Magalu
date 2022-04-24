@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { AgenteQueryRequestDTO } from './agentesDTO';
 import { DeleteAgenteUseCase } from './DeleteAgenteUseCase';
 import { GetAgenteUseCase } from './GetAgenteUseCase';
 import { SaveAgenteUseCase } from './SaveAgenteUseCase';
@@ -13,7 +14,9 @@ export class AgentesController {
 
 	async GetAll(request: Request, response: Response): Promise<Response> {
 		try {
-			const agentes = await this.getAgenteUseCase.execute();
+			const { cpf, email, id, nome } = request.query;
+
+			const agentes = await this.getAgenteUseCase.execute(<AgenteQueryRequestDTO>{ cpf, email, id, nome });
 			if (agentes.length > 0)
 				return response.status(200).send(agentes);
 			return response.status(204).send([]);
