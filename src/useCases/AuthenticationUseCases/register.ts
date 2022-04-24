@@ -1,4 +1,4 @@
-import { GenerateRefreshToken } from '@providers/implementations/generateRefreshToken';
+import { GenerateRefreshToken } from '@providers/implementations/GenerateRefreshToken';
 import { GenerateToken } from '@providers/implementations/GenerateToken';
 import { PrismaClient } from '@repositories/PrismaClient';
 import { AuthenticationController } from './authenticationController';

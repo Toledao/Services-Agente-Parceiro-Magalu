@@ -1,7 +1,7 @@
 import { IAuthenticationDTO, IAuthenticationResponseDTO } from './authenticationDTO';
 import { compare } from 'bcryptjs';
 import { GenerateToken } from '@providers/implementations/GenerateToken';
-import { GenerateRefreshToken } from '@providers/implementations/generateRefreshToken';
+import { GenerateRefreshToken } from '@providers/implementations/GenerateRefreshToken';
 import { PrismaClient } from '@repositories/PrismaClient';
 
 export class AuthenticationUseCase {

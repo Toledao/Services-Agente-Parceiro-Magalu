@@ -19,4 +19,8 @@ router.delete('/Agente', async (request: Request, response: Response) => await R
 router.post('/Login',async (request: Request, response: Response) => await RegisterAuthenticationController.handle(request, response));
 //#endregion
 
+//#region RefreshToken
+router.post('/Login/RefreshToken',async (request: Request, response: Response) => await RegisterRefreshTokenController.handle(request, response));
+//#endregion
+
 export { router };

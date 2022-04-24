@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { sign } from 'jsonwebtoken';
 import { Env } from '@config/environment';
 
@@ -12,7 +11,7 @@ export class GenerateRefreshToken {
 		Env.SECRETTOKEN,
 		{ 
 			subject: userId,
-			expiresIn: moment().add(120,'s').unix()
+			expiresIn: 120
 		});
 		return generateRefreshToken;
 	}
