@@ -1,12 +1,12 @@
 import { Entity } from '@entities/entity';
 import { IRepository } from '@repositories/IRepository';
-import { PrismaClient } from '@prisma/client';
 import { PrismaAdvancedFilteringService } from '@repositories/PrismaAdvancedFilteringService';
+import { PrismaClient as Prisma} from '@repositories/PrismaClient';
 
 export abstract class Repository<T extends Entity> implements IRepository<T> {
 
 	constructor(
-		protected clientPrisma = new PrismaClient(),
+		protected PrismaClient = Prisma,
 		protected filterService = new PrismaAdvancedFilteringService()
 	) { }
 
