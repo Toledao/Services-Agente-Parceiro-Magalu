@@ -5,6 +5,5 @@ export interface IAuthenticationDTO {
 
 export interface IAuthenticationResponseDTO {
     token: string,
-    refreshToken: string,
-    ehAdm: boolean
+    refreshToken: string
 }

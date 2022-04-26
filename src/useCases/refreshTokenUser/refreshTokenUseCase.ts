@@ -18,23 +18,25 @@ export class RefreshTokenUseCase{
 	async execute({ refreshToken }: IRefreshTokenRequestDTO){
 		// const decoded = verify(refreshToken, Env.SECRETTOKEN);
 		const decoded = decode(refreshToken);
-		const id = decoded?.sub?.toString();
+		const sub = decoded?.sub?.toString();
 		
+		if(!sub){
+			throw new Error('Invalid Refresh Token.');
+		}
+		
+		const {id, ehadm, nome} = await this.ObterUsuario(sub)
+
 		if(!id){
 			throw new Error('Invalid Refresh Token.');
 		}
 		
-		if(!this.ObterUsuario(id)){
-			throw new Error('Invalid Refresh Token.');
-		}
-		
-		const token = await this.generateTokenProvider.execute(id);
+		const token = await this.generateTokenProvider.execute(sub, ehadm, nome);
         
 		const expiresIn = decoded?.exp;
 		const refreshTokenExpired = moment().isAfter(moment.unix(expiresIn));
         
 		if(refreshTokenExpired){
-			const refreshToken = await this.generateRefreshToken.execute(id);
+			const refreshToken = await this.generateRefreshToken.execute(sub, ehadm, nome);
 			return <IRefreshTokenResponseDTO>{ token, refreshToken };
 		}
 
@@ -43,17 +45,19 @@ export class RefreshTokenUseCase{
 	}
 	
 	private async ObterUsuario(_id: string){
-		const { id } = await this.client.agente.findFirst({
+		const { id, nome } = await this.client.agente.findFirst({
 			where: {
 				id: _id
 			}
 		});
 
+		const ehadm = false
+
 		if (!id){
 			throw new Error('Refresh token Invalid');
 		}
         
-		return { id };
+		return { id, ehadm, nome };
 	}
     
 }

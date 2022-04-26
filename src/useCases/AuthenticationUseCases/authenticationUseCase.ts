@@ -14,17 +14,17 @@ export class AuthenticationUseCase {
 	
 	async execute({email, senha}:IAuthenticationDTO){
 		
-		const { id, ehAdm } = await this.ObterUsuario(email, senha);
+		const { id, ehAdm, nome } = await this.ObterUsuario(email, senha);
 		
-		const token = await this.tokenProvider.execute(id);
+		const token = await this.tokenProvider.execute(id, ehAdm, nome);
 
-		const refreshToken = await this.refreshTokenProvider.execute(id);
+		const refreshToken = await this.refreshTokenProvider.execute(id, ehAdm, nome);
 
-		return <IAuthenticationResponseDTO>{ token, refreshToken, ehAdm };
+		return <IAuthenticationResponseDTO>{ token, refreshToken};
 	}
 
 	private async ObterUsuario(email: string, _senha: string){
-		const { id, senha } = await this.prismaClient.agente.findFirst({
+		const { id, senha, nome } = await this.prismaClient.agente.findFirst({
 			where: {
 				email
 			}
@@ -42,7 +42,7 @@ export class AuthenticationUseCase {
 			throw new Error('Usuário ou senha incorretos.');
 		}
 		
-		return { id, senha, email, ehAdm };
+		return { id, senha, email, ehAdm, nome };
 	}
     
 }

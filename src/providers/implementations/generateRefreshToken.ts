@@ -3,10 +3,11 @@ import { Env } from '@config/environment';
 
 export class GenerateRefreshToken {
 
-	async execute(userId: string, ehAdm = false){
+	async execute(userId: string, ehAdm = false, nome: string){
 
 		const generateRefreshToken = sign({
-			adm: ehAdm
+			adm: ehAdm,
+			nome: nome
 		}, 
 		Env.SECRETTOKEN,
 		{ 

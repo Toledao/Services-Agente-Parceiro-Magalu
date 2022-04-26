@@ -3,9 +3,10 @@ import { sign } from 'jsonwebtoken';
 
 
 export class GenerateToken{
-	async execute(userId: string, ehAdm = false){
+	async execute(userId: string, ehAdm = false, nome: string){
 		const token = sign({
-			adm: ehAdm
+			adm: ehAdm,
+			nome: nome
 		}, 
 		Env.SECRETTOKEN,
 		{ 
