@@ -28,6 +28,9 @@ export class RedefinirSenhaUseCase {
 			body: `<p>Olá este é o seu código: <b>${codigo}</b></p>`
 		});
 
+		if (this.codigos === undefined)
+			this.codigos = Array<IAuthCodigoRequestDTO>();
+
 		this.codigos.push({ codigo, email });
 
 	}
@@ -49,6 +52,7 @@ export class RedefinirSenhaUseCase {
 	}
 
 	private async CodigoExiste(codigo: string, email: string) {
-		return this.codigos.findIndex(x => x.codigo === codigo && x.email === email) != -1;
+		const result = this.codigos?.findIndex(x => x.codigo.toUpperCase() === codigo.toUpperCase() && x.email === email);
+		return result != undefined && result != -1;
 	}
 }

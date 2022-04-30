@@ -26,7 +26,7 @@ router.post('/Login/RefreshToken', async (request: Request, response: Response) 
 //#endregion
 
 //#region EsqueciASenha
-router.post('/Login/EsqueciASenha', async (request: Request, response: Response) => await RegisterRedefinirSenhaController.enviarEmail(request, response));
+router.post('/Login/EsqueciASenha', async (request: Request, response: Response) => await RegisterRedefinirSenhaController.enviarCodigoEmail(request, response));
 router.post('/Login/EsqueciASenha/Codigo', async (request: Request, response: Response) => await RegisterRedefinirSenhaController.authCodigo(request, response));
 //#endregion
 

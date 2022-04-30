@@ -6,23 +6,23 @@ import { RedefinirSenhaUseCase } from './redefinirSenhaUseCase';
 export class RedefinirSenhaController {
 
 	constructor(
-		private readonly redefinirSenha: RedefinirSenhaUseCase
+		private redefinirSenha: RedefinirSenhaUseCase
 	) { }
 
-	public async enviarEmail(request: Request, response: Response) {
+	public async enviarCodigoEmail(request: Request, response: Response) {
 
 		const { email } = request.body;
 
 		try {
 
-			await this.redefinirSenha.enviarEmail(<IEnviarEmailRequestDTO>{ email });
+			await this.redefinirSenha.enviarEmail({ email });
 
-			return response.send(201).json(<IDefaultResponseDTO>{ success: true });
+			return response.status(201).json(<IDefaultResponseDTO>{ success: true });
 
 		}
 		catch (error) {
 
-			return response.send(400).json(<IDefaultResponseDTO>{ success: false });
+			return response.status(400).json(<IDefaultResponseDTO>{ success: false });
 		}
 	}
 
@@ -33,14 +33,14 @@ export class RedefinirSenhaController {
 		try {
 
 			const result = await this.redefinirSenha.auth(<IAuthCodigoRequestDTO>{ codigo, email });
-			const status = result ? 200 : 400;
+			const status = result === true ? 200 : 401;
 
-			return response.send(status).json(<IDefaultResponseDTO>{ success: result });
+			return response.status(status).json(<IDefaultResponseDTO>{ success: result });
 
 		}
 		catch (error) {
 
-			return response.send(400).json(<IDefaultResponseDTO>{ success: false });
+			return response.status(400).json(<IDefaultResponseDTO>{ success: false });
 		}
 	}
 
