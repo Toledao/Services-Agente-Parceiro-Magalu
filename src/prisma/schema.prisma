@@ -14,7 +14,7 @@ model Agente {
     id          String   @id @default(uuid())
     nome        String
     cpf         String   @unique
-    email       String
+    email       String   @unique
     dataCriacao DateTime @default(now()) @map("data_criacao")
     senha       String
 
