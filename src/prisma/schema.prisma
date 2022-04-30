@@ -2,21 +2,32 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "mysql"
-    url      = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
 }
 
 model Agente {
-    id          String   @id @default(uuid())
-    nome        String
-    cpf         String   @unique
-    email       String   @unique
-    dataCriacao DateTime @default(now()) @map("data_criacao")
-    senha       String
+  id          String   @id @default(uuid())
+  nome        String
+  cpf         String   @unique
+  email       String   @unique
+  dataCriacao DateTime @default(now()) @map("data_criacao")
+  senha       String
 
-    @@map("agentes")
+  Roteiro Roteiro[]
+  @@map("agentes")
+}
+
+model Roteiro {
+  id          String   @id @default(uuid())
+  dataVisita  DateTime @map("data_visita")
+  dataCriacao DateTime @default(now()) @map("data_criacao")
+  agenteId    String
+  agente      Agente   @relation(fields: [agenteId], references: [id])
+
+  @@map("roteiros")
 }
