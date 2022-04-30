@@ -10,10 +10,14 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 		const agente = await this.PrismaClient.agente.findFirst({
 			where: {
 				email
+			},
+			include: {
+				roteiro: true,
+				parceiro: true
 			}
 		});
 
-		return agente;
+		return <Agente>{ ...agente };
 	}
 
 	async create({ cpf, email, nome, senha }: Agente): Promise<Agente> {
@@ -27,7 +31,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			}
 		});
 
-		return agente;
+		return <Agente>{ ...agente };
 	}
 
 	async update({ id, cpf, email, nome, senha }: Agente): Promise<Agente> {
@@ -44,11 +48,12 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			}
 		});
 
-		return agente;
+		return <Agente>{ ...agente };
 	}
 
 	async getList(): Promise<Agente[]> {
-		return await this.PrismaClient.agente.findMany();
+		const agente = await this.PrismaClient.agente.findMany();
+		return <Agente[]>{ ...agente };
 	}
 
 	async getById(id: string): Promise<Agente> {
@@ -58,7 +63,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			}
 		});
 
-		return agente;
+		return <Agente>{ ...agente };
 	}
 
 	async delete(id: string): Promise<boolean> {
@@ -74,7 +79,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 	async getByFilter(objFilter: Agente): Promise<Agente[]> {
 
 		const { skip, take, where, orderBy } = this.filterService.CreateFilter(new DtoSearchSegments(objFilter));
-		return this.PrismaClient.agente.findMany({
+		const agente = await this.PrismaClient.agente.findMany({
 			skip,
 			take,
 			where: {
@@ -82,5 +87,6 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			},
 			orderBy: orderBy,
 		});
+		return agente.map(x => new Agente(<Agente>x));
 	}
 }
