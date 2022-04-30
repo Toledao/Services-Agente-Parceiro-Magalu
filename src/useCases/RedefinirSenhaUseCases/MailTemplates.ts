@@ -60,7 +60,7 @@ export const MailTemplateAlteradoComSucesso = function () {
 		margin: 1rem 0;">
 			<p>
 				Olá! Sua senha foi redefinida com sucesso.</br>
-				Redefinição de senha realizada no dia ${moment().format('LLLL')}
+				Redefinição realizada em: ${moment().locale('pt-br').format('LLLL')}.
 			</p>
 		</div>
 		<div style="background-color: #0086FE;

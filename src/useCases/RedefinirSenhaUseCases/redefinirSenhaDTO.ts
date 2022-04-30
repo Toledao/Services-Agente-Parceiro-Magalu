@@ -10,3 +10,8 @@ export interface IAuthCodigoRequestDTO {
 	email: string
 	codigo: string
 }
+
+export interface IRedefinirSenhaRequestDTO {
+	email: string
+	senha: string
+}

@@ -1,7 +1,9 @@
 import { Env } from '@config/environment';
 import { IEmailProvider, IMessage } from '@providers/IEmailProvider';
-import { IAuthCodigoRequestDTO, IEnviarEmailRequestDTO } from './redefinirSenhaDTO';
-import { MailTemplateSolicitacao } from './MailTemplates';
+import { IAuthCodigoRequestDTO, IEnviarEmailRequestDTO, IRedefinirSenhaRequestDTO } from './redefinirSenhaDTO';
+import { MailTemplateAlteradoComSucesso, MailTemplateSolicitacao } from './MailTemplates';
+import { PrismaClient } from '@repositories/PrismaClient';
+import { hash } from 'bcryptjs';
 
 
 export class RedefinirSenhaUseCase {
@@ -9,7 +11,8 @@ export class RedefinirSenhaUseCase {
 	private codigos: IAuthCodigoRequestDTO[];
 
 	constructor(
-		private readonly emailProvider: IEmailProvider
+		private readonly emailProvider: IEmailProvider,
+		private readonly client = PrismaClient
 	) { }
 
 	public async enviarEmail({ email }: IEnviarEmailRequestDTO) {
@@ -44,6 +47,44 @@ export class RedefinirSenhaUseCase {
 
 		return await this.CodigoExiste(codigo, email);
 
+	}
+
+	public async redefinirSenha({ senha, email }: IRedefinirSenhaRequestDTO) {
+
+		try {
+
+			const pass = await hash(senha, 8);
+
+			await this.client.agente.update({
+				where: {
+					email
+				},
+				data: {
+					senha: pass
+				}
+			});
+
+			const message = MailTemplateAlteradoComSucesso();
+
+			this.emailProvider.sendEmail(<IMessage>{
+				to: {
+					email,
+					name: email.split('@')[0]
+				},
+				from: {
+					email: Env.EMAIL,
+					name: Env.NAME
+				},
+				subject: 'Agente Parceiro - Senha Redefinida',
+				body: message
+			}
+			);
+
+			return true;
+		}
+		catch (error) {
+			return false;
+		}
 	}
 
 	private obterCodigo() {

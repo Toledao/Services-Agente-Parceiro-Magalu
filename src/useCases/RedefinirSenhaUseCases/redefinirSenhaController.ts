@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { IAuthCodigoRequestDTO, IDefaultResponseDTO, IEnviarEmailRequestDTO } from './redefinirSenhaDTO';
+import { IAuthCodigoRequestDTO, IDefaultResponseDTO } from './redefinirSenhaDTO';
 import { RedefinirSenhaUseCase } from './redefinirSenhaUseCase';
 
 
@@ -34,6 +34,23 @@ export class RedefinirSenhaController {
 
 			const result = await this.redefinirSenha.auth(<IAuthCodigoRequestDTO>{ codigo, email });
 			const status = result === true ? 200 : 401;
+
+			return response.status(status).json(<IDefaultResponseDTO>{ success: result });
+
+		}
+		catch (error) {
+
+			return response.status(400).json(<IDefaultResponseDTO>{ success: false });
+		}
+	}
+
+	public async redefinir(request: Request, response: Response) {
+		const { email, senha } = request.body;
+
+		try {
+
+			const result = await this.redefinirSenha.redefinirSenha({ senha, email });
+			const status = result === true ? 200 : 400;
 
 			return response.status(status).json(<IDefaultResponseDTO>{ success: result });
 
