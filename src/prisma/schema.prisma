@@ -18,7 +18,7 @@ model Agente {
   dataCriacao DateTime @default(now()) @map("data_criacao")
   senha       String
 
-  Roteiro Roteiro[]
+  Roteiro  Roteiro[]
   Parceiro Parceiro[]
   @@map("agentes")
 }
@@ -37,22 +37,24 @@ model Roteiro {
 
 model Parceiro {
 
-  id                 String  @id @default(uuid())
-  nome               String  @unique
-  descricao          String
-  cpnj               String
-  endereco           String
-  enderecoNumero     String
-  enderecoBairro     String
-  enderecoReferencia String
-  enderecoCep        String
-  enderecoCidade     String
-  enderecoEstado     String
-  enderecoPais       String
-  ativo              Boolean
-  reponsavel         String
-  agenteId           String
-  agente             Agente  @relation(fields: [agenteId], references: [id])
+  id                  String @id @default(uuid())
+  nome                String @unique
+  descricao           String
+  cpnj                String @unique
+  telefone            String
+  email               String
+  endereco            String
+  enderecoNumero      String
+  bairro              String
+  referencia          String
+  cep                 String
+  cidade              String
+  estado              String
+  enderecoComplemento String
+  ativo               Boolean
+  reponsavel          String
+  agenteId            String
+  agente              Agente  @relation(fields: [agenteId], references: [id])
 
   Roteiro Roteiro[]
 }

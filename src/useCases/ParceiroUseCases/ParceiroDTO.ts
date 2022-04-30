@@ -1,18 +1,19 @@
 import { AgenteResponseDTO } from '@usecases/AgentesUseCases/agentesDTO';
 
 export interface IParceiroSaveRequestDTO{
-    id?: string;
-    nome: string;  
+    nome: string;
 	descricao: string;
 	cpnj: string;
+	telefone: string;
+	email: string;
 	endereco: string;
 	enderecoNumero: string;
-	enderecoBairro: string;
-	enderecoReferencia?: string;
-	enderecoCep: string;
-	enderecoCidade: string;
-	enderecoEstado: string;
-	enderecoPais: string;
+	bairro: string;
+	referencia: string;
+	cep: string;
+	cidade: string;
+	estado: string;
+	enderecoComplemento: string;
 	ativo: boolean;
 	reponsavel: string;
 	agenteId: string;
@@ -20,17 +21,19 @@ export interface IParceiroSaveRequestDTO{
 
 export interface IParceiroSaveResponseDTO{
     id: string;
-    nome: string;  
+    nome: string;
 	descricao: string;
 	cpnj: string;
+	telefone: string;
+	email: string;
 	endereco: string;
 	enderecoNumero: string;
-	enderecoBairro: string;
-	enderecoReferencia: string;
-	enderecoCep: string;
-	enderecoCidade: string;
-	enderecoEstado: string;
-	enderecoPais: string;
+	bairro: string;
+	referencia: string;
+	cep: string;
+	cidade: string;
+	estado: string;
+	enderecoComplemento: string;
 	ativo: boolean;
 	reponsavel: string;
 	agente: AgenteResponseDTO;
@@ -42,17 +45,19 @@ export interface IParceiroDeleteRequestDTO{
 
 export interface IParceiroQueryRequestDTO{
     id?: string;
-    nome: string;  
+    nome: string;
 	descricao: string;
 	cpnj: string;
+	telefone: string;
+	email: string;
 	endereco: string;
 	enderecoNumero: string;
-	enderecoBairro: string;
-	enderecoReferencia?: string;
-	enderecoCep: string;
-	enderecoCidade: string;
-	enderecoEstado: string;
-	enderecoPais: string;
+	bairro: string;
+	referencia: string;
+	cep: string;
+	cidade: string;
+	estado: string;
+	enderecoComplemento: string;
 	ativo: boolean;
 	reponsavel: string;
 	agenteId: string;
