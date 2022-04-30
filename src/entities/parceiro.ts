@@ -10,7 +10,7 @@ export class Parceiro extends Entity {
 	endereco: string;
 	enderecoNumero: string;
 	enderecoBairro: string;
-	enderecoReferencia: string;
+	enderecoReferencia?: string;
 	enderecoCep: string;
 	enderecoCidade: string;
 	enderecoEstado: string;
@@ -18,11 +18,11 @@ export class Parceiro extends Entity {
 	ativo: boolean;
 	reponsavel: string;
 	agenteId: string;
-	agente: Agente; 
+	agente?: Agente; 
 
 	roteiro: Roteiro[];
 
-	constructor(props: Omit<Parceiro, 'id'>, id?: string) {
+	constructor(props: Omit<Parceiro, 'id' | 'roteiro' | 'agente'>, id?: string) {
 		super(id);
 		Object.assign(this, props);
 	}
