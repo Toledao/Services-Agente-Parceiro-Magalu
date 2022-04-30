@@ -17,7 +17,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			}
 		});
 
-		return <Agente>{ ...agente };
+		return <Agente>agente;
 	}
 
 	async create({ cpf, email, nome, senha }: Agente): Promise<Agente> {
@@ -31,7 +31,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			}
 		});
 
-		return <Agente>{ ...agente };
+		return <Agente>agente;
 	}
 
 	async update({ id, cpf, email, nome, senha }: Agente): Promise<Agente> {
@@ -48,7 +48,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			}
 		});
 
-		return <Agente>{ ...agente };
+		return <Agente>agente;
 	}
 
 	async getList(): Promise<Agente[]> {
@@ -63,7 +63,7 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			}
 		});
 
-		return <Agente>{ ...agente };
+		return <Agente>agente;
 	}
 
 	async delete(id: string): Promise<boolean> {
