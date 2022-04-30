@@ -1,6 +1,7 @@
 import { Env } from '@config/environment';
 import { IEmailProvider, IMessage } from '@providers/IEmailProvider';
 import { IAuthCodigoRequestDTO, IEnviarEmailRequestDTO } from './redefinirSenhaDTO';
+import { MailTemplateSolicitacao } from './MailTemplates';
 
 
 export class RedefinirSenhaUseCase {
@@ -14,6 +15,10 @@ export class RedefinirSenhaUseCase {
 	public async enviarEmail({ email }: IEnviarEmailRequestDTO) {
 
 		const codigo = this.obterCodigo();
+		if (codigo.length > 0 === false)
+			throw Error('Não foi possivel gerar o código.');
+
+		const message = MailTemplateSolicitacao(codigo);
 
 		this.emailProvider.sendEmail(<IMessage>{
 			to: {
@@ -25,7 +30,7 @@ export class RedefinirSenhaUseCase {
 				name: Env.NAME
 			},
 			subject: 'Agente Parceiro - Redefinir Senha',
-			body: `<p>Olá este é o seu código: <b>${codigo}</b></p>`
+			body: message
 		});
 
 		if (this.codigos === undefined)

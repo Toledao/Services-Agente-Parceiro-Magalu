@@ -27,7 +27,7 @@ export class MailSendinBlue implements IEmailProvider {
 
 			'sender': { 'email': from.email || Env.EMAIL, 'name': from.name || Env.NAME },
 			'subject': subject,
-			'htmlContent': body || '<!DOCTYPE html><html><body><h1>My First Heading</h1><p>My first paragraph.</p></body></html>',
+			'htmlContent': body,
 			'params': {
 				'greeting': 'This is the default greeting',
 				'headline': 'This is the default headline'
