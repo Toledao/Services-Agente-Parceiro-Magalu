@@ -13,7 +13,7 @@ export class Agente extends Entity {
 	parceiro: Parceiro[];
 	roteiro: Roteiro[];
 
-	constructor(props: Omit<Agente, 'id'>, id?: string) {
+	constructor(props: Omit<Agente, 'id' | 'parceiro' | 'roteiro'>, id?: string) {
 		super(id);
 		Object.assign(this, props);
 	}
