@@ -13,22 +13,34 @@ export class SaveParceiroUseCase {
 
 	public async Save(data: IParceiroSaveRequestDTO[]): Promise<IParceiroSaveResponseDTO[]> {
 
-		const ret = await this.SaveParceiro(data.map(x => new Parceiro({ ...x }, x?.id)));
+		const req = <Parceiro[]>data;
+
+		req.forEach(x => x.ativo = true);
+
+		const ret = await this.SaveParceiro(req);
 
 		return <IParceiroSaveResponseDTO[]>ret;
 	}
 
 	private async SaveParceiro(data: Parceiro[]) {
 
-		let ret: Parceiro[];
+		const ret: Parceiro[] = [];
+		let toCreate = data.filter(x => x.id === undefined);
+		const toUpdate = data.filter(x => x.id != undefined);
+		for (const item of data) {
+			const inativo = await this.parceiroRepository.findByCnpj(item.cpnj);
+			if (inativo != undefined && inativo != null) {
+				toCreate = toCreate.filter(x => x.cpnj != inativo.cpnj);
+				inativo.ativo = true;
+				toUpdate.push(inativo);
+			}
+		}
 
-		const toCreate = data.filter(x => x.id === undefined);
 		for (const item of toCreate) {
 			const parceiro = await this.parceiroRepository.create(item);
 			ret.push(parceiro);
 		}
 
-		const toUpdate = data.filter(x => x.id != undefined);
 		for (const item of toUpdate) {
 			const parceiro = await this.parceiroRepository.update(item);
 			ret.push(parceiro);
@@ -62,26 +74,26 @@ export class SaveParceiroUseCase {
 			console.log(line);
 
 			parceiroArray.push(
-				new Parceiro(
-					{
-						agenteId: split[0],
-						cpnj: split[2],
-						nome: split[3],
-						descricao: split[4],
-						email: split[5],
-						telefone: split[6],
-						endereco: split[7],
-						enderecoNumero: split[8],
-						referencia: split[9],
-						bairro: split[10],
-						cidade: split[11],
-						estado: split[12],
-						cep: split[13],
-						enderecoComplemento: split[14],
-						reponsavel: split[15],
-						ativo: true
-					}, split[1] //id
-				)
+				<Parceiro>
+				{
+					agenteId: split[0],
+					id: split[1],
+					cpnj: split[2],
+					nome: split[3],
+					descricao: split[4],
+					email: split[5],
+					telefone: split[6],
+					endereco: split[7],
+					enderecoNumero: split[8],
+					referencia: split[9],
+					bairro: split[10],
+					cidade: split[11],
+					estado: split[12],
+					cep: split[13],
+					enderecoComplemento: split[14],
+					reponsavel: split[15],
+					ativo: true
+				}
 			);
 		}
 
