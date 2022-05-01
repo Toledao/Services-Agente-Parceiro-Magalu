@@ -8,7 +8,7 @@ export class GetParceiroUseCase {
 		private readonly parceirosRepository: IParceirosRepository
 	) { }
 
-	async execute(data?: IParceiroQueryRequestDTO): Promise<IParceiroSaveResponseDTO[]> {
+	public async execute(data?: IParceiroQueryRequestDTO): Promise<IParceiroSaveResponseDTO[]> {
 
 		if (data?.id === undefined || data?.id === '') {
 			const ret = await this.parceirosRepository.getByFilter(<Parceiro>{ ...data });
