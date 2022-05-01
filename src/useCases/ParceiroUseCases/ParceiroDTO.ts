@@ -1,8 +1,9 @@
 import { Parceiro } from '@entities/parceiro';
 import { AgenteResponseDTO } from '@usecases/AgentesUseCases/agentesDTO';
 
-export interface IParceiroSaveRequestDTO{
-    nome: string;
+export interface IParceiroSaveRequestDTO {
+	id: string;
+	nome: string;
 	descricao: string;
 	cpnj: string;
 	telefone: string;
@@ -20,9 +21,9 @@ export interface IParceiroSaveRequestDTO{
 	agenteId: string;
 }
 
-export interface IParceiroSaveResponseDTO{
-    id: string;
-    nome: string;
+export interface IParceiroSaveResponseDTO {
+	id: string;
+	nome: string;
 	descricao: string;
 	cpnj: string;
 	telefone: string;
@@ -40,10 +41,10 @@ export interface IParceiroSaveResponseDTO{
 	agente: AgenteResponseDTO;
 }
 
-export class ParceiroSaveResponseDTO implements IParceiroSaveResponseDTO{
+export class ParceiroSaveResponseDTO implements IParceiroSaveResponseDTO {
 
 	constructor(props: Parceiro) {
-		
+
 		Object.assign(this, props);
 	}
 	id: string;
@@ -63,16 +64,16 @@ export class ParceiroSaveResponseDTO implements IParceiroSaveResponseDTO{
 	ativo: boolean;
 	reponsavel: string;
 	agente: AgenteResponseDTO;
-	
+
 }
 
-export interface IParceiroDeleteRequestDTO{
-    id?: string;
+export interface IParceiroDeleteRequestDTO {
+	id?: string;
 }
 
-export interface IParceiroQueryRequestDTO{
-    id?: string;
-    nome: string;
+export interface IParceiroQueryRequestDTO {
+	id?: string;
+	nome: string;
 	descricao: string;
 	cpnj: string;
 	telefone: string;

@@ -4,7 +4,7 @@ import { Roteiro } from './roteiro';
 
 export class Parceiro extends Entity {
 
-	nome: string;  
+	nome: string;
 	descricao: string;
 	cpnj: string;
 	telefone: string;
@@ -20,7 +20,7 @@ export class Parceiro extends Entity {
 	ativo: boolean;
 	reponsavel: string;
 	agenteId: string;
-	agente?: Agente; 
+	agente?: Agente;
 
 	roteiro: Roteiro[];
 

@@ -5,21 +5,8 @@ import { Repository } from './repository';
 
 export class ParceirosRepository extends Repository<Parceiro> implements IParceirosRepository {
 
-	public async createMany(obj: Parceiro[]): Promise<Parceiro[]> {
-		
-		const list = await this.PrismaClient.parceiro.createMany({
-			data: [...obj],
-			skipDuplicates: true
-		});
-		return list;
-	}
-
-	public async updateMany(obj: Parceiro[]): Promise<Parceiro[]> {
-		throw new Error('Method not implemented.');
-	}
-
-	async create({ 
-		id, 
+	async create({
+		id,
 		nome,
 		descricao,
 		cpnj,
@@ -36,7 +23,7 @@ export class ParceirosRepository extends Repository<Parceiro> implements IParcei
 		ativo,
 		reponsavel,
 		agenteId
-	}:Parceiro): Promise<Parceiro> {
+	}: Parceiro): Promise<Parceiro> {
 
 		const Parceiro = await this.PrismaClient.parceiro.create({
 			data: {
@@ -63,7 +50,7 @@ export class ParceirosRepository extends Repository<Parceiro> implements IParcei
 		return <Parceiro>Parceiro;
 	}
 
-	async update({ 
+	async update({
 		id,
 		nome,
 		descricao,
