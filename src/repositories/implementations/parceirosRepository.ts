@@ -5,6 +5,17 @@ import { Repository } from './repository';
 
 export class ParceirosRepository extends Repository<Parceiro> implements IParceirosRepository {
 
+	async findByCnpj(cpnj: string): Promise<Parceiro> {
+
+		const parceiro = await this.PrismaClient.parceiro.findFirst({
+			where: {
+				cpnj
+			}
+		});
+
+		return <Parceiro>parceiro;
+	}
+
 	async create({
 		id,
 		nome,
