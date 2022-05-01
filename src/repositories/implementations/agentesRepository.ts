@@ -10,10 +10,6 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 		const agente = await this.PrismaClient.agente.findFirst({
 			where: {
 				email
-			},
-			include: {
-				roteiro: true,
-				parceiro: true
 			}
 		});
 
