@@ -5,59 +5,82 @@ import { Repository } from './repository';
 
 export class ParceirosRepository extends Repository<Parceiro> implements IParceirosRepository {
 
+	public async createMany(obj: Parceiro[]): Promise<Parceiro[]> {
+		
+		const list = await this.PrismaClient.parceiro.createMany({
+			data: [...obj],
+			skipDuplicates: true
+		});
+		return list;
+	}
+
+	public async updateMany(obj: Parceiro[]): Promise<Parceiro[]> {
+		throw new Error('Method not implemented.');
+	}
+
 	async create({ 
-		agenteId,
-		cpnj,
-		descricao,
-		endereco,
-		enderecoBairro,
-		enderecoCep,
-		enderecoCidade,
-		enderecoEstado,
-		enderecoNumero,
-		enderecoPais,
-		enderecoReferencia,
+		id, 
 		nome,
+		descricao,
+		cpnj,
+		telefone,
+		email,
+		endereco,
+		enderecoNumero,
+		bairro,
+		referencia,
+		cep,
+		cidade,
+		estado,
+		enderecoComplemento,
+		ativo,
 		reponsavel,
+		agenteId
 	}:Parceiro): Promise<Parceiro> {
 
 		const Parceiro = await this.PrismaClient.parceiro.create({
 			data: {
-				agenteId,
-				cpnj,
-				descricao,
-				endereco,
-				enderecoBairro,
-				enderecoCep,
-				enderecoCidade,
-				enderecoEstado,
-				enderecoNumero,
-				enderecoPais,
-				enderecoReferencia,
+				id,
 				nome,
+				descricao,
+				cpnj,
+				telefone,
+				email,
+				endereco,
+				enderecoNumero,
+				bairro,
+				referencia,
+				cep,
+				cidade,
+				estado,
+				enderecoComplemento,
+				ativo,
 				reponsavel,
-				ativo: true
+				agenteId
 			}
 		});
 
-		return <Parceiro>{ ...Parceiro };
+		return <Parceiro>Parceiro;
 	}
 
 	async update({ 
 		id,
-		agenteId,
-		cpnj,
-		descricao,
-		endereco,
-		enderecoBairro,
-		enderecoCep,
-		enderecoCidade,
-		enderecoEstado,
-		enderecoNumero,
-		enderecoPais,
-		enderecoReferencia,
 		nome,
-		reponsavel
+		descricao,
+		cpnj,
+		telefone,
+		email,
+		endereco,
+		enderecoNumero,
+		bairro,
+		referencia,
+		cep,
+		cidade,
+		estado,
+		enderecoComplemento,
+		ativo,
+		reponsavel,
+		agenteId
 	}: Parceiro): Promise<Parceiro> {
 
 		const Parceiro = await this.PrismaClient.parceiro.update({
@@ -66,38 +89,41 @@ export class ParceirosRepository extends Repository<Parceiro> implements IParcei
 			},
 
 			data: {
-				agenteId,
-				cpnj,
-				descricao,
-				endereco,
-				enderecoBairro,
-				enderecoCep,
-				enderecoCidade,
-				enderecoEstado,
-				enderecoNumero,
-				enderecoPais,
-				enderecoReferencia,
 				nome,
+				descricao,
+				cpnj,
+				telefone,
+				email,
+				endereco,
+				enderecoNumero,
+				bairro,
+				referencia,
+				cep,
+				cidade,
+				estado,
+				enderecoComplemento,
+				ativo,
 				reponsavel,
+				agenteId
 			}
 		});
 
-		return <Parceiro>{ ...Parceiro };
+		return <Parceiro>Parceiro;
 	}
 
 	async getList(): Promise<Parceiro[]> {
-		const Parceiro = await this.PrismaClient.parceiro.findMany();
-		return <Parceiro[]>{ ...Parceiro };
+		const parceiro = await this.PrismaClient.parceiro.findMany();
+		return <Parceiro[]>parceiro;
 	}
 
 	async getById(id: string): Promise<Parceiro> {
-		const Parceiro = await this.PrismaClient.parceiro.findFirst({
+		const parceiro = await this.PrismaClient.parceiro.findFirst({
 			where: {
 				id
 			}
 		});
 
-		return <Parceiro>{ ...Parceiro };
+		return <Parceiro>parceiro;
 	}
 
 	async delete(id: string): Promise<boolean> {
