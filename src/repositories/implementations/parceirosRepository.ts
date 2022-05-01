@@ -110,14 +110,19 @@ export class ParceirosRepository extends Repository<Parceiro> implements IParcei
 	}
 
 	async getList(): Promise<Parceiro[]> {
-		const parceiro = await this.PrismaClient.parceiro.findMany();
+		const parceiro = await this.PrismaClient.parceiro.findMany({
+			where: {
+				ativo: true
+			}
+		});
 		return <Parceiro[]>parceiro;
 	}
 
 	async getById(id: string): Promise<Parceiro> {
 		const parceiro = await this.PrismaClient.parceiro.findFirst({
 			where: {
-				id
+				id,
+				ativo: true
 			}
 		});
 
