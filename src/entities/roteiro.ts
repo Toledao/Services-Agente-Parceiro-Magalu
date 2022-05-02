@@ -6,6 +6,7 @@ export class Roteiro extends Entity {
 
 	dataVisita: Date;
 	dataCriacao: Date;
+	tipoVisita: TipoVisita;
 
 	agenteId: string;
 	agente: Agente;
@@ -13,8 +14,14 @@ export class Roteiro extends Entity {
 	parceiroId: string;
 	parceiro: Parceiro;
 
-	constructor(props: Omit<Roteiro, 'id'>, id?: string) {
+	constructor(props: Omit<Roteiro, 'id' | 'agente' | 'parceiro'>, id?: string) {
 		super(id);
 		Object.assign(this, props);
 	}
+}
+
+export enum TipoVisita {
+	Presencial,
+	Videoconferencia,
+	Ligacao,
 }
