@@ -11,7 +11,7 @@ export interface IRoteiroSaveRequestDTO {
 	parceiroId: string;
 }
 
-export interface IRoteiroSaveResponseDTO {
+export interface IRoteiroResponseDTO {
 	id: string;
 	dataVisita: Date;
 	dataCriacao: Date;
@@ -20,18 +20,19 @@ export interface IRoteiroSaveResponseDTO {
 	parceiro: Parceiro;
 }
 
-export class RoteiroSaveResponseDTO implements IRoteiroSaveRequestDTO {
+export class RoteiroResponseDTO implements IRoteiroResponseDTO {
 
 	constructor(props: Roteiro) {
 
 		Object.assign(this, props);
 	}
-	id?: string;
+
+	id: string;
+	agente: Agente;
+	parceiro: Parceiro;
 	dataVisita: Date;
 	dataCriacao: Date;
 	tipoVisita: TipoVisita;
-	agenteId: string;
-	parceiroId: string;
 }
 
 export interface IRoteiroDeleteRequestDTO {
