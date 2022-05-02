@@ -5,7 +5,6 @@ import { Parceiro } from '@entities/parceiro';
 export interface IRoteiroSaveRequestDTO {
 	id?: string;
 	dataVisita: Date;
-	dataCriacao: Date;
 	tipoVisita: TipoVisita;
 	agenteId: string;
 	parceiroId: string;
