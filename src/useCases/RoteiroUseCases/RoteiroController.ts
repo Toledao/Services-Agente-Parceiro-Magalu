@@ -1,13 +1,13 @@
 import { Request, Response } from 'express';
 import { RoteiroDeleteUseCase } from './RoteiroDeleteUseCase';
 import { RoteiroGetUseCase } from './GetAgenteUseCase';
-import { SaveRoteiroUseCase } from './RoteiroSaveUseCase';
+import { RoteiroSaveUseCase } from './RoteiroSaveUseCase';
 import { IRoteiroQueryRequestDTO } from './RoteiroDTO';
 
 export class RoteirosController {
 
 	constructor(
-		private saveRoteiroUseCase: SaveRoteiroUseCase,
+		private saveRoteiroUseCase: RoteiroSaveUseCase,
 		private getRoteiroUseCase: RoteiroGetUseCase,
 		private deleteRoteiroUseCase: RoteiroDeleteUseCase,
 	) { }
