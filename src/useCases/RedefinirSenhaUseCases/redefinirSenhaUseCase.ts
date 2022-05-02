@@ -4,6 +4,7 @@ import { IAuthCodigoRequestDTO, IEnviarEmailRequestDTO, IRedefinirSenhaRequestDT
 import { MailTemplateAlteradoComSucesso, MailTemplateSolicitacao } from './MailTemplates';
 import { PrismaClient } from '@repositories/PrismaClient';
 import { hash } from 'bcryptjs';
+import { AgentesRepository } from '@repositories/implementations/agentesRepository';
 
 
 export class RedefinirSenhaUseCase {
@@ -12,12 +13,19 @@ export class RedefinirSenhaUseCase {
 
 	constructor(
 		private readonly emailProvider: IEmailProvider,
+		private readonly agenteRepo: AgentesRepository,
 		private readonly client = PrismaClient
 	) { }
 
 	public async enviarEmail({ email }: IEnviarEmailRequestDTO) {
 
+		const agente = await this.agenteRepo.findByEmail(email);
+
+		if (agente === undefined || agente === null)
+			throw new Error('email/usuario incorretos.');
+
 		const codigo = this.obterCodigo();
+
 		if (codigo.length > 0 === false)
 			throw Error('Não foi possivel gerar o código.');
 
