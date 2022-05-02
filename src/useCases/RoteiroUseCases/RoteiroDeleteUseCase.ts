@@ -1,6 +1,6 @@
 import { IRoteirosRepository } from '@repositories/IRoteirosRepository';
 
-export class DeleteRoteiroUseCase {
+export class RoteiroDeleteUseCase {
 
 	constructor(
 		private readonly roteirosRepository: IRoteirosRepository

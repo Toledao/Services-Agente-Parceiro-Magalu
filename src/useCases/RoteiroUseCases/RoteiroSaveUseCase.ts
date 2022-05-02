@@ -3,7 +3,7 @@ import { IRoteirosRepository } from '@repositories/IRoteirosRepository';
 import { IRoteiroResponseDTO, IRoteiroSaveRequestDTO, RoteiroResponseDTO } from './RoteiroDTO';
 
 
-export class SaveRoteiroUseCase {
+export class RoteiroSaveUseCase {
 
 	constructor(
 		private readonly roteirosRepository: IRoteirosRepository

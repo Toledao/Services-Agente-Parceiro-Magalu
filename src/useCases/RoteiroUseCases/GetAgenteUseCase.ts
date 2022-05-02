@@ -2,7 +2,7 @@ import { Roteiro } from '@entities/roteiro';
 import { IRoteirosRepository } from '@repositories/IRoteirosRepository';
 import { IRoteiroQueryRequestDTO, RoteiroResponseDTO } from './RoteiroDTO';
 
-export class GetRoteiroUseCase {
+export class RoteiroGetUseCase {
 
 	constructor(
 		private readonly roteirosRepository: IRoteirosRepository

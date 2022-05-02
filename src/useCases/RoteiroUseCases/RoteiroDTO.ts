@@ -39,8 +39,8 @@ export interface IRoteiroDeleteRequestDTO {
 	id?: string;
 }
 
-export interface IRoteiroQueryRequestDTO {
-	id?: string;
+export class IRoteiroQueryRequestDTO {
+	id: string;
 	dataVisita: Date;
 	dataCriacao: Date;
 	tipoVisita: TipoVisita;
