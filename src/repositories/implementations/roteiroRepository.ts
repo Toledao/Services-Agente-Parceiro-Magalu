@@ -97,6 +97,7 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 			orderBy: orderBy,
 		});
 		return roteiro.map(x => new Roteiro(<Roteiro>x));
+		return roteiro.map(x => <Roteiro>x);
 	}
 
 }

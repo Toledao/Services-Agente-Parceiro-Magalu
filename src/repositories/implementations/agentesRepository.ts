@@ -83,6 +83,6 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			},
 			orderBy: orderBy,
 		});
-		return agente.map(x => new Agente(<Agente>x));
+		return agente.map(x => <Agente>x);
 	}
 }

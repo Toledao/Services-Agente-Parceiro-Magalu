@@ -150,6 +150,6 @@ export class ParceirosRepository extends Repository<Parceiro> implements IParcei
 			},
 			orderBy: orderBy,
 		});
-		return parceiros.map(x => new Parceiro(<Parceiro>x));
+		return parceiros.map(x => <Parceiro>x);
 	}
 }
