@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { RoteiroDeleteUseCase } from './RoteiroDeleteUseCase';
-import { RoteiroGetUseCase } from './GetAgenteUseCase';
 import { RoteiroSaveUseCase } from './RoteiroSaveUseCase';
 import { IRoteiroQueryRequestDTO } from './RoteiroDTO';
+import { RoteiroGetUseCase } from './RoteiroGetUseCase';
 import moment from 'moment';
 
 export class RoteirosController {

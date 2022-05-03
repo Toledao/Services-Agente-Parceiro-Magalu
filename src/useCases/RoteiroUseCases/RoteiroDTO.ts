@@ -1,6 +1,8 @@
 import { Roteiro, TipoVisita } from '@entities/roteiro';
 import { Agente } from '@entities/agente';
 import { Parceiro } from '@entities/parceiro';
+import { AgenteResponseDTO } from '@usecases/AgentesUseCases/agentesDTO';
+import { ParceiroResponseDTO } from '@usecases/ParceiroUseCases/ParceiroDTO';
 
 export interface IRoteiroSaveRequestDTO {
 	id?: string;
@@ -15,8 +17,8 @@ export interface IRoteiroResponseDTO {
 	dataVisita: Date;
 	dataCriacao: Date;
 	tipoVisita: TipoVisita;
-	agente: Agente;
-	parceiro: Parceiro;
+	agente: AgenteResponseDTO;
+	parceiro: ParceiroResponseDTO;
 }
 
 export class RoteiroResponseDTO implements IRoteiroResponseDTO {
@@ -27,8 +29,8 @@ export class RoteiroResponseDTO implements IRoteiroResponseDTO {
 	}
 
 	id: string;
-	agente: Agente;
-	parceiro: Parceiro;
+	agente: AgenteResponseDTO;
+	parceiro: ParceiroResponseDTO;
 	dataVisita: Date;
 	dataCriacao: Date;
 	tipoVisita: TipoVisita;

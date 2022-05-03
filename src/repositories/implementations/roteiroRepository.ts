@@ -1,3 +1,4 @@
+import { Agente } from '@entities/agente';
 import { Roteiro } from '@entities/roteiro';
 import { IRoteirosRepository } from '@repositories/IRoteirosRepository';
 import { DtoSearchSegments } from '@repositories/SearchDTO';
@@ -36,6 +37,41 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 				tipoVisita,
 				parceiroId,
 				agenteId
+			},
+			select: {
+				id: true,
+				dataVisita: true,
+				tipoVisita: true,
+				dataCriacao: true,
+				parceiro: {
+					select: {
+						id: true,
+						ativo: true,
+						cpnj: true,
+						nome: true,
+						descricao: true,
+						reponsavel: true,
+						telefone: true,
+						email: true,
+						cep: true,
+						endereco: true,
+						enderecoNumero: true,
+						enderecoComplemento: true,
+						bairro: true,
+						cidade: true,
+						estado: true,
+						referencia: true
+					}
+				},
+				agente: {
+					select: {
+						id: true,
+						nome: true,
+						email: true,
+						cpf: true,
+						dataCriacao: true
+					}
+				}
 			}
 		});
 
@@ -53,6 +89,41 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 				tipoVisita,
 				parceiroId,
 				agenteId
+			},
+			select: {
+				id: true,
+				dataVisita: true,
+				tipoVisita: true,
+				dataCriacao: true,
+				parceiro: {
+					select: {
+						id: true,
+						ativo: true,
+						cpnj: true,
+						nome: true,
+						descricao: true,
+						reponsavel: true,
+						telefone: true,
+						email: true,
+						cep: true,
+						endereco: true,
+						enderecoNumero: true,
+						enderecoComplemento: true,
+						bairro: true,
+						cidade: true,
+						estado: true,
+						referencia: true
+					}
+				},
+				agente: {
+					select: {
+						id: true,
+						nome: true,
+						email: true,
+						cpf: true,
+						dataCriacao: true
+					}
+				}
 			}
 		});
 
@@ -68,7 +139,42 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 		const roteiro = await this.PrismaClient.roteiro.findFirst({
 			where: {
 				id
-			}
+			},
+			select: {
+				id: true,
+				dataVisita: true,
+				tipoVisita: true,
+				dataCriacao: true,
+				parceiro: {
+					select: {
+						id: true,
+						ativo: true,
+						cpnj: true,
+						nome: true,
+						descricao: true,
+						reponsavel: true,
+						telefone: true,
+						email: true,
+						cep: true,
+						endereco: true,
+						enderecoNumero: true,
+						enderecoComplemento: true,
+						bairro: true,
+						cidade: true,
+						estado: true,
+						referencia: true
+					}
+				},
+				agente: {
+					select: {
+						id: true,
+						nome: true,
+						email: true,
+						cpf: true,
+						dataCriacao: true
+					}
+				}
+			},
 		});
 
 		return <Roteiro>roteiro;
@@ -92,6 +198,41 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 			take,
 			where: {
 				...where
+			},
+			select: {
+				id: true,
+				dataVisita: true,
+				tipoVisita: true,
+				dataCriacao: true,
+				parceiro: {
+					select: {
+						id: true,
+						ativo: true,
+						cpnj: true,
+						nome: true,
+						descricao: true,
+						reponsavel: true,
+						telefone: true,
+						email: true,
+						cep: true,
+						endereco: true,
+						enderecoNumero: true,
+						enderecoComplemento: true,
+						bairro: true,
+						cidade: true,
+						estado: true,
+						referencia: true
+					}
+				},
+				agente: {
+					select: {
+						id: true,
+						nome: true,
+						email: true,
+						cpf: true,
+						dataCriacao: true
+					}
+				}
 			},
 			orderBy: orderBy,
 		});

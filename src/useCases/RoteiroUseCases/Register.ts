@@ -1,7 +1,7 @@
 import { RoteiroRepository } from '@repositories/implementations/roteiroRepository';
-import { RoteiroGetUseCase } from './GetAgenteUseCase';
 import { RoteirosController } from './RoteiroController';
 import { RoteiroDeleteUseCase } from './RoteiroDeleteUseCase';
+import { RoteiroGetUseCase } from './RoteiroGetUseCase';
 import { RoteiroSaveUseCase } from './RoteiroSaveUseCase';
 
 const repoBase = new RoteiroRepository();

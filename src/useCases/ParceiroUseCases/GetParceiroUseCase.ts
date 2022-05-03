@@ -1,6 +1,6 @@
 import { Parceiro } from '@entities/parceiro';
 import { IParceirosRepository } from '@repositories/IParceirosRepository';
-import { IParceiroQueryRequestDTO, IParceiroSaveResponseDTO, ParceiroSaveResponseDTO } from './ParceiroDTO';
+import { IParceiroQueryRequestDTO, IParceiroSaveResponseDTO, ParceiroResponseDTO } from './ParceiroDTO';
 
 export class GetParceiroUseCase {
 
@@ -12,11 +12,11 @@ export class GetParceiroUseCase {
 
 		if (data?.id === undefined || data?.id === '') {
 			const ret = await this.parceirosRepository.getByFilter(<Parceiro>{ ...data });
-			return ret.length === 0 ? [] : ret.map(x => new ParceiroSaveResponseDTO(x));
+			return ret.length === 0 ? [] : ret.map(x => new ParceiroResponseDTO(x));
 		}
 
 		const ret = await this.parceirosRepository.getById(data.id);
 
-		return !ret?.id ? [] : Array<ParceiroSaveResponseDTO>(new ParceiroSaveResponseDTO(ret));
+		return !ret?.id ? [] : Array<ParceiroResponseDTO>(new ParceiroResponseDTO(ret));
 	}
 }
