@@ -16,13 +16,16 @@ export class RoteiroSaveUseCase {
 		const roteiro = new Roteiro({
 			...data,
 			dataCriacao: data?.id != undefined && data?.id != null ? undefined : moment().toDate(),
-			dataVisita: moment(data.dataVisita, 'DD/MM/YYYY').toDate()
 		}, data?.id);
 
 		if (!data?.id) {
 			return new RoteiroResponseDTO(await this.roteirosRepository.create(roteiro));
 		}
 		else {
+			const visita = await this.roteirosRepository.getById(data.id);
+			if (moment().isAfter(visita.dataVisita))
+				throw new Error('Não é possivel alterar a visita com horário passado.');
+
 			return new RoteiroResponseDTO(await this.roteirosRepository.update(roteiro));
 		}
 	}

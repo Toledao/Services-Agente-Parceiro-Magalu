@@ -42,7 +42,7 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 		return <Roteiro>roteiro;
 	}
 
-	async update({ id, dataVisita, dataCriacao, tipoVisita, parceiroId, agenteId }: Roteiro): Promise<Roteiro> {
+	async update({ id, dataVisita, tipoVisita, parceiroId, agenteId }: Roteiro): Promise<Roteiro> {
 
 		const roteiro = await this.PrismaClient.roteiro.update({
 			where: {
@@ -50,7 +50,6 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 			},
 			data: {
 				dataVisita,
-				dataCriacao,
 				tipoVisita,
 				parceiroId,
 				agenteId
@@ -96,7 +95,6 @@ export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosR
 			},
 			orderBy: orderBy,
 		});
-		return roteiro.map(x => new Roteiro(<Roteiro>x));
 		return roteiro.map(x => <Roteiro>x);
 	}
 
