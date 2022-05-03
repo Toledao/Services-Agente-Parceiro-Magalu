@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { RoteiroDeleteUseCase } from './RoteiroDeleteUseCase';
 import { RoteiroSaveUseCase } from './RoteiroSaveUseCase';
-import { IRoteiroQueryRequestDTO } from './RoteiroDTO';
+import { IRoteiroQueryRequestDTO, IRoteiroSaveRequestDTO } from './RoteiroDTO';
 import { RoteiroGetUseCase } from './RoteiroGetUseCase';
 import moment from 'moment';
 
@@ -49,16 +49,13 @@ export class RoteirosController {
 
 	async Save(request: Request, response: Response): Promise<Response> {
 
-		const { id, dataVisita, tipoVisita, parceiroId, agenteId } = request.body;
+		const { data } = request.body;
+
+		const reqbody = <IRoteiroSaveRequestDTO[]>[...data];
 
 		try {
-			const roteiro = await this.saveRoteiroUseCase.execute({
-				id: id || null,
-				dataVisita: dataVisita != undefined ? moment(dataVisita, 'YYYY-MM-DD hh:mm:ss').toDate() : undefined,
-				tipoVisita,
-				parceiroId,
-				agenteId
-			});
+
+			const roteiro = await this.saveRoteiroUseCase.execute(reqbody);
 
 			return response.status(201).send(roteiro);
 

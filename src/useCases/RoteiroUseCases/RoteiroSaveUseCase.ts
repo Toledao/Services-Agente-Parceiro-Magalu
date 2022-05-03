@@ -11,22 +11,41 @@ export class RoteiroSaveUseCase {
 	) { }
 
 
-	async execute(data: IRoteiroSaveRequestDTO): Promise<IRoteiroResponseDTO> {
+	async execute(data: IRoteiroSaveRequestDTO[]): Promise<IRoteiroResponseDTO[]> {
 
-		const roteiro = new Roteiro({
-			...data,
-			dataCriacao: data?.id != undefined && data?.id != null ? undefined : moment().toDate(),
-		}, data?.id);
+		const ret: RoteiroResponseDTO[] = [];
 
-		if (!data?.id) {
-			return new RoteiroResponseDTO(await this.roteirosRepository.create(roteiro));
-		}
-		else {
-			const visita = await this.roteirosRepository.getById(data.id);
-			if (moment().isAfter(visita.dataVisita))
+		for (const visita of data) {
+
+			const _dataVisita = visita.dataVisita != undefined ? moment(visita.dataVisita, 'YYYY-MM-DD hh:mm:ss').toDate() : undefined;
+			const _dataCriacao = visita?.id != undefined && visita?.id != null ? undefined : moment().toDate();
+			const itemRoteiro = new Roteiro(
+				{
+					...visita,
+					dataVisita: _dataVisita,
+					dataCriacao: _dataCriacao
+				}, visita?.id);
+
+			if (!visita?.id) {
+				ret.push(
+					new RoteiroResponseDTO(
+						await this.roteirosRepository.create(itemRoteiro)
+					)
+				);
+				continue;
+			}
+
+			const visitaExistente = await this.roteirosRepository.getById(visita.id);
+			if (moment().isAfter(visitaExistente.dataVisita))
 				throw new Error('Não é possivel alterar a visita com horário passado.');
 
-			return new RoteiroResponseDTO(await this.roteirosRepository.update(roteiro));
+			ret.push(
+				new RoteiroResponseDTO(
+					await this.roteirosRepository.update(itemRoteiro)
+				)
+			);
 		}
+
+		return ret;
 	}
 }
