@@ -24,8 +24,9 @@ export class Parceiro extends Entity {
 
 	roteiro: Roteiro[];
 
-	constructor(props: Omit<Parceiro, 'id' | 'roteiro' | 'agente'>, id?: string) {
-		super(id);
+	constructor(props: Omit<Parceiro, 'id' | 'roteiro' | 'agente'>, _id?: string) {
+		const { id, ..._props } = props;
+		super(_id);
 		Object.assign(this, props);
 	}
 }

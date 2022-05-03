@@ -13,9 +13,10 @@ export class Roteiro extends Entity {
 	agenteId: string;
 	agente: Agente;
 
-	constructor(props: Omit<Roteiro, 'id' | 'agente' | 'parceiro'>, id?: string) {
-		super(id);
-		Object.assign(this, props);
+	constructor(props: Omit<Roteiro, 'id' | 'agente' | 'parceiro'>, _id?: string) {
+		const { id, ..._props } = props;
+		super(_id);
+		Object.assign(this, _props);
 	}
 }
 

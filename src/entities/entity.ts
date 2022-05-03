@@ -7,5 +7,8 @@ export class Entity {
 		if (!id) {
 			this.id = uuid();
 		}
+		else {
+			this.id = id;
+		}
 	}
 }
