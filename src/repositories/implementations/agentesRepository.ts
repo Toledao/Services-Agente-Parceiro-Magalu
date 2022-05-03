@@ -48,7 +48,15 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 	}
 
 	async getList(): Promise<Agente[]> {
-		const agente = await this.PrismaClient.agente.findMany();
+		const agente = await this.PrismaClient.agente.findMany({
+			select: {
+				id: true,
+				nome: true,
+				email: true,
+				cpf: true,
+				dataCriacao: true,
+			}
+		});
 		return <Agente[]>{ ...agente };
 	}
 
@@ -56,6 +64,13 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 		const agente = await this.PrismaClient.agente.findFirst({
 			where: {
 				id
+			},
+			select: {
+				id: true,
+				nome: true,
+				email: true,
+				cpf: true,
+				dataCriacao: true,
 			}
 		});
 
@@ -81,8 +96,15 @@ export class AgentesRepository extends Repository<Agente> implements IAgentesRep
 			where: {
 				...where
 			},
+			select: {
+				id: true,
+				nome: true,
+				email: true,
+				cpf: true,
+				dataCriacao: true,
+			},
 			orderBy: orderBy,
 		});
-		return agente.map(x => new Agente(<Agente>x));
+		return agente.map(x => <Agente>x);
 	}
 }

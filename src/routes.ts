@@ -4,7 +4,8 @@ import { RegisterAuthenticationController } from '@usecases/AuthenticationUseCas
 import { RegisterParceiroController } from '@usecases/ParceiroUseCases/Register';
 import { RegisterRedefinirSenhaController } from '@usecases/RedefinirSenhaUseCases/register';
 import { RegisterRefreshTokenController } from '@usecases/refreshTokenUser/register';
-import { Request, Response, Router } from 'express';
+import { RegisterRoteiroController } from '@usecases/RoteiroUseCases/Register';
+import { request, Request, Response, Router } from 'express';
 import multer from 'multer';
 
 const multerConfig = multer();
@@ -44,5 +45,13 @@ router.post('/Parceiro/Import', ensureAuthenticated, multerConfig.single('file')
 router.delete('/Parceiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterParceiroController.Delete(request, response));
 //#endregion
 
+//#region Roteiros
+router.get('/Roteiro/:id', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.Get(request, response));
+router.get('/Roteiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.GetAll(request, response));
+router.post('/Roteiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.Save(request, response));
+router.put('/Roteiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.Save(request, response));
+router.delete('/Roteiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.Delete(request, response));
+
+//#endregion
 
 export { router };

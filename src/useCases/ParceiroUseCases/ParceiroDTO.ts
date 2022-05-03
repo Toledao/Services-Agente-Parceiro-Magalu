@@ -41,7 +41,7 @@ export interface IParceiroSaveResponseDTO {
 	agente: AgenteResponseDTO;
 }
 
-export class ParceiroSaveResponseDTO implements IParceiroSaveResponseDTO {
+export class ParceiroResponseDTO implements IParceiroSaveResponseDTO {
 
 	constructor(props: Parceiro) {
 

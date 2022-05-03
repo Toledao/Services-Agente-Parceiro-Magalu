@@ -6,15 +6,22 @@ export class Roteiro extends Entity {
 
 	dataVisita: Date;
 	dataCriacao: Date;
+	tipoVisita: TipoVisita;
+	parceiroId: string;
+	parceiro: Parceiro;
 
 	agenteId: string;
 	agente: Agente;
 
-	parceiroId: string;
-	parceiro: Parceiro;
-
-	constructor(props: Omit<Roteiro, 'id'>, id?: string) {
-		super(id);
-		Object.assign(this, props);
+	constructor(props: Omit<Roteiro, 'id' | 'agente' | 'parceiro'>, _id?: string) {
+		const { id, ..._props } = props;
+		super(_id);
+		Object.assign(this, _props);
 	}
+}
+
+export enum TipoVisita {
+	Presencial = 'Presencial',
+	Videoconferencia = 'Videoconferencia',
+	Ligacao = 'Ligacao',
 }
