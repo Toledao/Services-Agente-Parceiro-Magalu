@@ -9,8 +9,8 @@ export class Tag {
 	agenteId: string;
 	exibePadrao: boolean;
 	agente?: Agente;
-	tagParceiro: TagParceiro[];
-	tagRoteiro: TagRoteiro[];
+	TagParceiro: TagParceiro[];
+	TagRoteiro: TagRoteiro[];
 }
 
 export class TagParceiro {

@@ -1,11 +1,10 @@
-import { Agente } from '@entities/agente';
 import { Roteiro } from '@entities/roteiro';
 import { IRoteirosRepository } from '@repositories/IRoteirosRepository';
 import { DtoSearchSegments } from '@repositories/SearchDTO';
 import { Repository } from './repository';
 
 
-export class RoteiroRepository extends Repository<Roteiro> implements IRoteirosRepository {
+export class RoteirosRepository extends Repository<Roteiro> implements IRoteirosRepository {
 
 	async findByAgenteId(agenteId: string): Promise<Roteiro> {
 		const roteiro = await this.PrismaClient.roteiro.findFirst({
