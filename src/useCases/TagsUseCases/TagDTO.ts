@@ -37,6 +37,6 @@ export class ITagQueryRequestDTO {
 	id: string;
 	nome: string;
 	cor: string;
-	exibePadrao: string;
+	exibePadrao: boolean;
 	agenteId: string;
 }
