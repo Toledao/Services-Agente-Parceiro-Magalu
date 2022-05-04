@@ -5,6 +5,7 @@ import { RegisterParceiroController } from '@usecases/ParceiroUseCases/Register'
 import { RegisterRedefinirSenhaController } from '@usecases/RedefinirSenhaUseCases/register';
 import { RegisterRefreshTokenController } from '@usecases/refreshTokenUser/register';
 import { RegisterRoteiroController } from '@usecases/RoteiroUseCases/Register';
+import { RegisterTagController } from '@usecases/TagsUseCases/Register';
 import { request, Request, Response, Router } from 'express';
 import multer from 'multer';
 
@@ -51,7 +52,14 @@ router.get('/Roteiro', ensureAuthenticated, async (request: Request, response: R
 router.post('/Roteiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.Save(request, response));
 router.put('/Roteiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.Save(request, response));
 router.delete('/Roteiro', ensureAuthenticated, async (request: Request, response: Response) => await RegisterRoteiroController.Delete(request, response));
+//#endregion
 
+//#region Tags
+router.get('/Tag/:id', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.Get(request, response));
+router.get('/Tag', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.GetAll(request, response));
+router.post('/Tag', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.Save(request, response));
+router.put('/Tag', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.Save(request, response));
+router.delete('/Tag', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.Delete(request, response));
 //#endregion
 
 export { router };
