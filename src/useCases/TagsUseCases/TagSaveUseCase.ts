@@ -11,10 +11,14 @@ export class TagSaveUseCase {
 
 	async execute(data: ITagSaveRequestDTO): Promise<TagResponseDTO> {
 
+		if (!data?.agenteId) {
+			throw new Error('Necessário informar o agenteId.');
+		}
+
 		const tag = new Tag(<Tag>data);
 
 		if (!data.id) {
-			const tagExiste = await this.tagsRepository.ExistsByAgenteId(data.cor, data.agenteId);
+			const tagExiste = await this.tagsRepository.ExistsByAgenteId({ ...data });
 
 			if (tagExiste) {
 				throw new Error('Tag já existente.');

@@ -5,7 +5,7 @@ export interface ITagsRepository extends IRepository<Tag> {
 
 	findByAgenteId(agenteId: string): Promise<Tag[]>;
 
-	ExistsByAgenteId(cor: string, agenteId: string): Promise<boolean>;
+	ExistsByAgenteId({ nome, cor, agenteId }): Promise<boolean>;
 
 	findByRoteiroId(roteiroId: string): Promise<Tag[]>;
 

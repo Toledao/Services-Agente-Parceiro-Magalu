@@ -6,9 +6,9 @@ import { Repository } from './repository';
 
 export class TagsRepository extends Repository<Tag> implements ITagsRepository {
 
-	async ExistsByAgenteId(cor: string, agenteId: string): Promise<boolean> {
+	async ExistsByAgenteId({ nome, cor, agenteId }): Promise<boolean> {
 		const tags = await this.findByAgenteId(agenteId);
-		return tags.filter(x => x.cor === cor).length > 0;
+		return tags.filter(x => x.cor === cor && x.nome === nome).length > 0;
 	}
 
 	async findByAgenteId(agenteId: string): Promise<Tag[]> {
@@ -50,17 +50,15 @@ export class TagsRepository extends Repository<Tag> implements ITagsRepository {
 		return <Tag>tag;
 	}
 
-	async update({ id, cor, nome, agenteId }: Tag): Promise<Tag> {
+	async update({ id, cor, nome }: Tag): Promise<Tag> {
 
 		const tag = await this.PrismaClient.tag.update({
 			where: {
 				id
 			},
 			data: {
-				id,
 				cor,
 				nome,
-				agenteId,
 				exibePadrao: false
 			}
 		});
