@@ -1,10 +1,10 @@
-import { RoteiroRepository } from '@repositories/implementations/roteiroRepository';
+import { RoteirosRepository } from '@repositories/implementations/roteirosRepository';
 import { RoteirosController } from './RoteiroController';
 import { RoteiroDeleteUseCase } from './RoteiroDeleteUseCase';
 import { RoteiroGetUseCase } from './RoteiroGetUseCase';
 import { RoteiroSaveUseCase } from './RoteiroSaveUseCase';
 
-const repoBase = new RoteiroRepository();
+const repoBase = new RoteirosRepository();
 const getUseCase = new RoteiroGetUseCase(repoBase);
 const saveUseCase = new RoteiroSaveUseCase(repoBase);
 const deleteRoteiroUseCase = new RoteiroDeleteUseCase(repoBase);
