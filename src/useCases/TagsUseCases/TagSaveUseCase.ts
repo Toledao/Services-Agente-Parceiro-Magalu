@@ -2,7 +2,7 @@ import { Tag } from '@entities/tag';
 import { ITagsRepository } from '@repositories/ITagsRepository';
 import { ITagSaveRequestDTO, TagResponseDTO } from './TagDTO';
 
-export class SaveTagUseCase {
+export class TagSaveUseCase {
 
 	constructor(
 		private readonly tagsRepository: ITagsRepository
