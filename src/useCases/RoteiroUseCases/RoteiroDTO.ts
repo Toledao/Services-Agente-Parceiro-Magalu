@@ -1,6 +1,4 @@
 import { Roteiro, TipoVisita } from '@entities/roteiro';
-import { Agente } from '@entities/agente';
-import { Parceiro } from '@entities/parceiro';
 import { AgenteResponseDTO } from '@usecases/AgentesUseCases/agentesDTO';
 import { ParceiroResponseDTO } from '@usecases/ParceiroUseCases/ParceiroDTO';
 

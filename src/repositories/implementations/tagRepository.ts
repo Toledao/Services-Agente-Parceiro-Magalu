@@ -6,18 +6,23 @@ import { Repository } from './repository';
 
 export class TagsRepository extends Repository<Tag> implements ITagsRepository {
 
-	async findByAgenteId(agenteId: string): Promise<Tag> {
-		const tag = await this.PrismaClient.tag.findFirst({
+	async ExistsByAgenteId(cor: string, agenteId: string): Promise<boolean> {
+		const tags = await this.findByAgenteId(agenteId);
+		return tags.filter(x => x.cor === cor).length > 0;
+	}
+
+	async findByAgenteId(agenteId: string): Promise<Tag[]> {
+		const tag = await this.PrismaClient.tag.findMany({
 			where: {
 				agenteId
 			}
 		});
 
-		return <Tag>tag;
+		return <Tag[]>tag;
 	}
 
-	async findByRoteiroId(roteiroId: string): Promise<Tag> {
-		const tag = await this.PrismaClient.tag.findFirst({
+	async findByRoteiroId(roteiroId: string): Promise<Tag[]> {
+		const tag = await this.PrismaClient.tag.findMany({
 			include: {
 				TagRoteiro: {
 					where: {
@@ -27,7 +32,7 @@ export class TagsRepository extends Repository<Tag> implements ITagsRepository {
 			}
 		});
 
-		return <Tag>tag;
+		return <Tag[]>tag;
 	}
 
 	async create({ id, cor, nome, agenteId }: Tag): Promise<Tag> {
