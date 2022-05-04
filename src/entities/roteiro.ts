@@ -13,9 +13,9 @@ export class Roteiro extends Entity {
 
 	agenteId: string;
 	agente: Agente;
-	tagRoteiro: TagRoteiro[];
+	TagRoteiro: TagRoteiro[];
 
-	constructor(props: Omit<Roteiro, 'id' | 'agente' | 'parceiro'>, _id?: string) {
+	constructor(props: Omit<Roteiro, 'id' | 'agente' | 'parceiro' | 'TagRoteiro'>, _id?: string) {
 		const { id, ..._props } = props;
 		super(_id);
 		Object.assign(this, _props);

@@ -231,6 +231,18 @@ export class RoteirosRepository extends Repository<Roteiro> implements IRoteiros
 						cpf: true,
 						dataCriacao: true
 					}
+				},
+				TagRoteiro: {
+					select: {
+						tag: {
+							select: {
+								id: true,
+								nome: true,
+								cor: true,
+								exibePadrao: true
+							}
+						}
+					}
 				}
 			},
 			orderBy: orderBy,

@@ -1,4 +1,4 @@
-import { Tag } from '@entities/tag';
+import { Tag, TagParceiro, TagRoteiro } from '@entities/tag';
 import { ITagsRepository } from '@repositories/ITagsRepository';
 import { DtoSearchSegments } from '@repositories/SearchDTO';
 import { Repository } from './repository';
@@ -6,7 +6,46 @@ import { Repository } from './repository';
 
 export class TagsRepository extends Repository<Tag> implements ITagsRepository {
 
-	async ExistsByAgenteId({ nome, cor, agenteId }): Promise<boolean> {
+	async saveToRoteiro({ tagId, roteiroId }: Omit<TagRoteiro, 'tag' | 'roteiro'>): Promise<Tag> {
+		await this.PrismaClient.tagRoteiro.createMany({
+			data: {
+				tagId,
+				roteiroId
+			},
+			skipDuplicates: true
+		});
+
+		return await this.getById(tagId);
+	}
+
+	async deleteToRoteiro({ tagId, roteiroId }: Omit<TagRoteiro, 'tag' | 'roteiro'>): Promise<void> {
+		await this.PrismaClient.tagRoteiro.delete({
+			where: {
+				roteiroId_tagId: { tagId, roteiroId }
+			}
+		});
+	}
+
+	async saveToParceiro({ tagId, parceiroId }: Omit<TagParceiro, 'tag' | 'parceiro'>): Promise<Tag> {
+		const tagParceiro = await this.PrismaClient.tagParceiro.create({
+			data: {
+				tagId,
+				parceiroId
+			},
+			select: {
+				tag: {
+					select: {
+						id: true,
+						nome: true,
+						cor: true
+					}
+				}
+			}
+		});
+		return <Tag>tagParceiro.tag;
+	}
+
+	async existsByAgenteId({ nome, cor, agenteId }): Promise<boolean> {
 		const tags = await this.findByAgenteId(agenteId);
 		return tags.filter(x => x.cor === cor && x.nome === nome).length > 0;
 	}
@@ -23,9 +62,9 @@ export class TagsRepository extends Repository<Tag> implements ITagsRepository {
 
 	async findByRoteiroId(roteiroId: string): Promise<Tag[]> {
 		const tag = await this.PrismaClient.tag.findMany({
-			include: {
+			where: {
 				TagRoteiro: {
-					where: {
+					some: {
 						roteiroId
 					}
 				}

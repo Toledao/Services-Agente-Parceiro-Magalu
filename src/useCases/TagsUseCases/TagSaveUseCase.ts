@@ -18,7 +18,7 @@ export class TagSaveUseCase {
 		const tag = new Tag(<Tag>data);
 
 		if (!data.id) {
-			const tagExiste = await this.tagsRepository.ExistsByAgenteId({ ...data });
+			const tagExiste = await this.tagsRepository.existsByAgenteId({ ...data });
 
 			if (tagExiste) {
 				throw new Error('Tag já existente.');
