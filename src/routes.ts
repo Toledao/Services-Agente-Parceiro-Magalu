@@ -1,6 +1,7 @@
 import { ensureAuthenticated } from '@middlewares/ensureAuthenticated';
 import { RegisterAgentesController } from '@usecases/AgentesUseCases/Register';
 import { RegisterAuthenticationController } from '@usecases/AuthenticationUseCases/register';
+import { RegisterCheckListController } from '@usecases/CheckListUseCases/Register';
 import { RegisterParceiroController } from '@usecases/ParceiroUseCases/Register';
 import { RegisterRedefinirSenhaController } from '@usecases/RedefinirSenhaUseCases/register';
 import { RegisterRefreshTokenController } from '@usecases/refreshTokenUser/register';
@@ -60,6 +61,14 @@ router.get('/Tag', ensureAuthenticated, async (request: Request, response: Respo
 router.post('/Tag', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.Save(request, response));
 router.put('/Tag', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.Save(request, response));
 router.delete('/Tag', ensureAuthenticated, async (request: Request, response: Response) => await RegisterTagController.Delete(request, response));
+//#endregion
+
+//#region Checklist
+router.get('/Checklist/:id', ensureAuthenticated, async (request: Request, response: Response) => await RegisterCheckListController.Get(request, response));
+router.get('/Checklist', ensureAuthenticated, async (request: Request, response: Response) => await RegisterCheckListController.GetAll(request, response));
+router.post('/Checklist', ensureAuthenticated, async (request: Request, response: Response) => await RegisterCheckListController.Save(request, response));
+router.put('/Checklist', ensureAuthenticated, async (request: Request, response: Response) => await RegisterCheckListController.Save(request, response));
+router.delete('/Checklist', ensureAuthenticated, async (request: Request, response: Response) => await RegisterCheckListController.Delete(request, response));
 //#endregion
 
 export { router };
