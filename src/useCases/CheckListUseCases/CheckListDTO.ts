@@ -2,6 +2,7 @@
 import { ParceiroResponseDTO } from '../ParceiroUseCases/ParceiroDTO';
 import { AgenteResponseDTO } from '../AgentesUseCases/agentesDTO';
 import { ITagSaveRequestDTO, TagResponseDTO } from '../TagsUseCases/TagDTO';
+import { CheckList } from '@entities/checklist';
 
 export interface ICheckListSaveRequestDTO {
 	id?: string;

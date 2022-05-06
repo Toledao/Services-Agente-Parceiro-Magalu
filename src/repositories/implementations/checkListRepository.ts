@@ -1,7 +1,6 @@
 import { CheckList } from '@entities/checklist';
 import { ICheckListsRepository } from '@repositories/ICheckListsRepository';
 import { DtoSearchSegments } from '@repositories/SearchDTO';
-import moment from 'moment';
 import { Repository } from './repository';
 
 
@@ -43,8 +42,7 @@ export class CheckListsRepository extends Repository<CheckList> implements IChec
 				redesSociaisAtivas,
 				tipoLogistica,
 				agenteId,
-				parceiroId,
-				dataCriacao: moment().toNow()
+				parceiroId
 			}
 		});
 

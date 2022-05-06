@@ -16,7 +16,7 @@ export class CheckListsController {
 		try {
 			const { id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, dataPrimeiraVisita, agenteId, parceiroId } = request.query;
 
-			const checkLists = await this.getCheckListUseCase.execute(<ICheckListQueryRequestDTO>{ id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, dataPrimeiraVisita, agenteId, parceiroId });
+			const checkLists = await this.getCheckListUseCase.execute(<ICheckListQueryRequestDTO><unknown>{ id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, dataPrimeiraVisita, agenteId, parceiroId });
 			if (checkLists.length > 0)
 				return response.status(200).send(checkLists);
 			return response.status(204).send([]);
