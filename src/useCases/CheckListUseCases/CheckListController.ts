@@ -14,9 +14,9 @@ export class CheckListsController {
 
 	async GetAll(request: Request, response: Response): Promise<Response> {
 		try {
-			const { id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, imagens, dataPrimeiraVisita, agenteId, parceiroId } = request.query;
+			const { id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, dataPrimeiraVisita, agenteId, parceiroId } = request.query;
 
-			const checkLists = await this.getCheckListUseCase.execute(<ICheckListQueryRequestDTO>{ id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, imagens, dataPrimeiraVisita, agenteId, parceiroId });
+			const checkLists = await this.getCheckListUseCase.execute(<ICheckListQueryRequestDTO>{ id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, dataPrimeiraVisita, agenteId, parceiroId });
 			if (checkLists.length > 0)
 				return response.status(200).send(checkLists);
 			return response.status(204).send([]);
@@ -30,11 +30,11 @@ export class CheckListsController {
 
 	async Get(request: Request, response: Response): Promise<Response> {
 
-		const { preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, imagens, dataPrimeiraVisita, agenteId, parceiroId } = request.body;
+		const { preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, dataPrimeiraVisita, agenteId, parceiroId } = request.body;
 		const { id } = request.params;
 
 		try {
-			const checkLists = await this.getCheckListUseCase.execute({ id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, imagens, dataPrimeiraVisita, agenteId, parceiroId });
+			const checkLists = await this.getCheckListUseCase.execute({ id, preferenciaContato, redesSociaisAtivas, canaisVendaOnline, qtdeSku, pussuiErpHub, tipoLogistica, percepcaoGeral, dataPrimeiraVisita, agenteId, parceiroId });
 			if (checkLists?.length > 0)
 				return response.status(200).send(checkLists);
 			return response.status(204).send([]);

@@ -74,7 +74,6 @@ export class ICheckListQueryRequestDTO {
 	pussuiErpHub: string;
 	tipoLogistica: string;
 	percepcaoGeral: string;
-	imagens: string;
 	dataPrimeiraVisita: Date;
 	agenteId: string;
 	parceiroId: string;
