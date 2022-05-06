@@ -20,6 +20,7 @@ model Agente {
 
     Roteiro  Roteiro[]
     Parceiro Parceiro[]
+    Tag      Tag[]
     @@map("agentes")
 }
 
@@ -33,6 +34,7 @@ model Roteiro {
     parceiro    Parceiro   @relation(fields: [parceiroId], references: [id])
     tipoVisita  TipoVisita @map("tipo_visita")
 
+    TagRoteiro TagRoteiro[]
     @@map("roteiros")
 }
 
@@ -63,5 +65,39 @@ model Parceiro {
     agenteId            String
     agente              Agente  @relation(fields: [agenteId], references: [id])
 
-    Roteiro Roteiro[]
+    Roteiro     Roteiro[]
+    TagParceiro TagParceiro[]
+}
+
+model Tag {
+    id          String        @id @default(uuid())
+    nome        String
+    cor         String
+    agenteId    String?
+    exibePadrao Boolean       @default(false) @map("exibe_padrao")
+    agente      Agente?       @relation(fields: [agenteId], references: [id])
+    TagParceiro TagParceiro[]
+    TagRoteiro  TagRoteiro[]
+
+    @@map("tags")
+}
+
+model TagRoteiro {
+    roteiroId String
+    roteiro   Roteiro @relation(fields: [roteiroId], references: [id])
+    tagId     String
+    tag       Tag     @relation(fields: [tagId], references: [id])
+
+    @@id([roteiroId, tagId])
+    @@map("tags_roteiros")
+}
+
+model TagParceiro {
+    parceiroId String
+    parceiro   Parceiro @relation(fields: [parceiroId], references: [id])
+    tagId      String
+    tag        Tag      @relation(fields: [tagId], references: [id])
+
+    @@id([parceiroId, tagId])
+    @@map("tags_parceiro")
 }

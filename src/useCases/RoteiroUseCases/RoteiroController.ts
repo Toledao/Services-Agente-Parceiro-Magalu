@@ -3,14 +3,13 @@ import { RoteiroDeleteUseCase } from './RoteiroDeleteUseCase';
 import { RoteiroSaveUseCase } from './RoteiroSaveUseCase';
 import { IRoteiroQueryRequestDTO, IRoteiroSaveRequestDTO } from './RoteiroDTO';
 import { RoteiroGetUseCase } from './RoteiroGetUseCase';
-import moment from 'moment';
 
 export class RoteirosController {
 
 	constructor(
 		private saveRoteiroUseCase: RoteiroSaveUseCase,
 		private getRoteiroUseCase: RoteiroGetUseCase,
-		private deleteRoteiroUseCase: RoteiroDeleteUseCase,
+		private deleteRoteiroUseCase: RoteiroDeleteUseCase
 	) { }
 
 	async GetAll(request: Request, response: Response): Promise<Response> {

@@ -59,6 +59,7 @@
 		"uuidv4": "^6.2.13"
 	},
 	"prisma": {
-		"schema": "./src/prisma/schema.prisma"
+		"schema": "./src/prisma/schema.prisma",
+		"seed": "ts-node-dev ./src/prisma/seed.ts"
 	}
 }

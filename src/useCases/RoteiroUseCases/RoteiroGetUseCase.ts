@@ -12,7 +12,8 @@ export class RoteiroGetUseCase {
 
 		if (data?.id === undefined || data?.id === '') {
 			const ret = await this.roteirosRepository.getByFilter(<Roteiro>{ ...data });
-			return ret.length === 0 ? [] : ret.map(x => new RoteiroResponseDTO(x));
+			const _ret = ret?.map(x => new RoteiroResponseDTO(x));
+			return ret.length === 0 ? [] : _ret;
 		}
 
 		const ret = await this.roteirosRepository.getById(data.id);

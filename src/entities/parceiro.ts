@@ -1,6 +1,7 @@
 import { Agente } from './agente';
 import { Entity } from './entity';
 import { Roteiro } from './roteiro';
+import { TagParceiro } from './tag';
 
 export class Parceiro extends Entity {
 
@@ -23,10 +24,11 @@ export class Parceiro extends Entity {
 	agente?: Agente;
 
 	roteiro: Roteiro[];
+	tagParceiro: TagParceiro[];
 
-	constructor(props: Omit<Parceiro, 'id' | 'roteiro' | 'agente'>, _id?: string) {
+	constructor(props: Omit<Parceiro, 'id' | 'roteiro' | 'agente' | 'TagParceiro'>, _id?: string) {
 		const { id, ..._props } = props;
 		super(_id);
-		Object.assign(this, props);
+		Object.assign(this, _props);
 	}
 }
