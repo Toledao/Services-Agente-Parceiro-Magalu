@@ -21,7 +21,7 @@ export class CheckList extends Entity {
 	parceiro: Parceiro;
 	tags: Tag[];
 
-	constructor(props: Omit<CheckList, 'id' | 'parceiro' | 'agente'>, _id?: string) {
+	constructor(props: Omit<CheckList, 'id' | 'parceiro' | 'agente' | 'tags'>, _id?: string) {
 		const { id, ..._props } = props;
 		super(_id);
 		Object.assign(this, _props);
