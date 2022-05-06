@@ -105,21 +105,21 @@ model TagParceiro {
 }
 
 model CheckList {
-    id          String        @id @default(uuid())
-    pergunta    String
-    resposta    String
-    tipo        CheckListTipo
-    dataCriacao DateTime      @default(now()) @map("data_criacao")
-    agenteId    String
-    agente      Agente        @relation(fields: [agenteId], references: [id])
-    parceiroId  String
-    parceiro    Parceiro      @relation(fields: [parceiroId], references: [id])
+    id                 String   @id @default(uuid())
+    preferenciaContato String   @map("preferencia_contato")
+    redesSociaisAtivas String   @map("redes_sociais_ativas")
+    canaisVendaOnline  String   @map("canais_venda_online")
+    qtdeSku            String   @map("qtde_sku")
+    pussuiErpHub       String   @map("possui_erp_hub")
+    tipoLogistica      String   @map("tipo_logistica")
+    percepcaoGeral     String   @map("percepcao_geral")
+    imagens            String
+    dataPrimeiraVisita DateTime @default(now()) @map("data_primeira_visita")
+    dataCriacao        DateTime @default(now()) @map("data_criacao")
+    agenteId           String
+    agente             Agente   @relation(fields: [agenteId], references: [id])
+    parceiroId         String
+    parceiro           Parceiro @relation(fields: [parceiroId], references: [id])
 
     @@map("checklist")
-}
-
-enum CheckListTipo {
-    checklist
-    text
-    image
 }

@@ -4,9 +4,15 @@ import { Parceiro } from './parceiro';
 
 export class CheckList extends Entity {
 	id: string;
-	pergunta: string;
-	resposta: string;
-	tipo: string;
+	preferenciaContato: string;
+	redesSociaisAtivas: string;
+	canaisVendaOnline: string;
+	qtdeSku: string;
+	pussuiErpHub: string;
+	tipoLogistica: string;
+	percepcaoGeral: string;
+	imagens: string;
+	dataPrimeiraVisita: Date;
 	dataCriacao: Date;
 	agenteId: string;
 	agente: Agente;
@@ -19,3 +25,4 @@ export class CheckList extends Entity {
 		Object.assign(this, _props);
 	}
 }
+
