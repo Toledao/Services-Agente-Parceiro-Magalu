@@ -81,6 +81,9 @@ model Tag {
     TagParceiro TagParceiro[]
     TagRoteiro  TagRoteiro[]
 
+    CheckList    CheckList?     @relation(fields: [checkListId], references: [id])
+    checkListId  String?
+    TagCheckList TagCheckList[]
     @@map("tags")
 }
 
@@ -120,6 +123,18 @@ model CheckList {
     agente             Agente   @relation(fields: [agenteId], references: [id])
     parceiroId         String
     parceiro           Parceiro @relation(fields: [parceiroId], references: [id])
+    tag                Tag[]
 
+    TagCheckList TagCheckList[]
     @@map("checklist")
+}
+
+model TagCheckList {
+    checklistId String
+    checklist   CheckList @relation(fields: [checklistId], references: [id])
+    tagId       String
+    tag         Tag       @relation(fields: [tagId], references: [id])
+
+    @@id([checklistId, tagId])
+    @@map("tags_checklist")
 }

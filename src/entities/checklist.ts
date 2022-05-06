@@ -1,6 +1,7 @@
 import { Agente } from './agente';
 import { Entity } from './entity';
 import { Parceiro } from './parceiro';
+import { Tag } from './tag';
 
 export class CheckList extends Entity {
 	id: string;
@@ -18,6 +19,7 @@ export class CheckList extends Entity {
 	agente: Agente;
 	parceiroId: string;
 	parceiro: Parceiro;
+	tags: Tag[];
 
 	constructor(props: Omit<CheckList, 'id' | 'parceiro' | 'agente'>, _id?: string) {
 		const { id, ..._props } = props;
