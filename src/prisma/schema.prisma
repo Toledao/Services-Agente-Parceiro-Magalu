@@ -18,9 +18,10 @@ model Agente {
     dataCriacao DateTime @default(now()) @map("data_criacao")
     senha       String
 
-    Roteiro  Roteiro[]
-    Parceiro Parceiro[]
-    Tag      Tag[]
+    Roteiro   Roteiro[]
+    Parceiro  Parceiro[]
+    Tag       Tag[]
+    CheckList CheckList[]
     @@map("agentes")
 }
 
@@ -67,6 +68,7 @@ model Parceiro {
 
     Roteiro     Roteiro[]
     TagParceiro TagParceiro[]
+    CheckList   CheckList[]
 }
 
 model Tag {
@@ -100,4 +102,24 @@ model TagParceiro {
 
     @@id([parceiroId, tagId])
     @@map("tags_parceiro")
+}
+
+model CheckList {
+    id          String        @id @default(uuid())
+    pergunta    String
+    resposta    String
+    tipo        CheckListTipo
+    dataCriacao DateTime      @default(now()) @map("data_criacao")
+    agenteId    String
+    agente      Agente        @relation(fields: [agenteId], references: [id])
+    parceiroId  String
+    parceiro    Parceiro      @relation(fields: [parceiroId], references: [id])
+
+    @@map("checklist")
+}
+
+enum CheckListTipo {
+    checklist
+    text
+    image
 }
