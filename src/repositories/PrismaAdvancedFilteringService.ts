@@ -96,6 +96,10 @@ export class PrismaAdvancedFilteringService {
 		} else if (lastChar === '*') {
 			sanatizedvalue = sanatizedvalue.substring(0, value.length - 1);
 			pointer['startsWith'] = sanatizedvalue;
+		} else if (sanatizedvalue === "true"){
+			pointer['equals'] = true;
+		} else if (sanatizedvalue === "false"){
+			pointer['equals'] = false;
 		} else {
 			pointer['equals'] = sanatizedvalue;
 		}
