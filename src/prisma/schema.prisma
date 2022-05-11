@@ -1,0 +1,140 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+model Agente {
+    id          String   @id @default(uuid())
+    nome        String
+    cpf         String   @unique
+    email       String   @unique
+    dataCriacao DateTime @default(now()) @map("data_criacao")
+    senha       String
+
+    Roteiro   Roteiro[]
+    Parceiro  Parceiro[]
+    Tag       Tag[]
+    CheckList CheckList[]
+    @@map("agentes")
+}
+
+model Roteiro {
+    id          String     @id @default(uuid())
+    dataVisita  DateTime   @map("data_visita")
+    dataCriacao DateTime   @default(now()) @map("data_criacao")
+    agenteId    String
+    agente      Agente     @relation(fields: [agenteId], references: [id])
+    parceiroId  String
+    parceiro    Parceiro   @relation(fields: [parceiroId], references: [id])
+    tipoVisita  TipoVisita @map("tipo_visita")
+
+    TagRoteiro TagRoteiro[]
+    @@map("roteiros")
+}
+
+enum TipoVisita {
+    Presencial
+    Videoconferencia
+    Ligacao
+}
+
+model Parceiro {
+
+    id                  String  @id @default(uuid())
+    nome                String  @unique
+    descricao           String
+    cpnj                String  @unique
+    telefone            String
+    email               String
+    endereco            String
+    enderecoNumero      String
+    bairro              String
+    referencia          String
+    cep                 String
+    cidade              String
+    estado              String
+    enderecoComplemento String
+    ativo               Boolean
+    reponsavel          String
+    agenteId            String
+    agente              Agente  @relation(fields: [agenteId], references: [id])
+
+    Roteiro     Roteiro[]
+    TagParceiro TagParceiro[]
+    CheckList   CheckList[]
+}
+
+model Tag {
+    id          String        @id @default(uuid())
+    nome        String
+    cor         String
+    agenteId    String?
+    exibePadrao Boolean       @default(false) @map("exibe_padrao")
+    agente      Agente?       @relation(fields: [agenteId], references: [id])
+    TagParceiro TagParceiro[]
+    TagRoteiro  TagRoteiro[]
+
+    CheckList    CheckList?     @relation(fields: [checkListId], references: [id])
+    checkListId  String?
+    TagCheckList TagCheckList[]
+    @@map("tags")
+}
+
+model TagRoteiro {
+    roteiroId String
+    roteiro   Roteiro @relation(fields: [roteiroId], references: [id])
+    tagId     String
+    tag       Tag     @relation(fields: [tagId], references: [id])
+
+    @@id([roteiroId, tagId])
+    @@map("tags_roteiros")
+}
+
+model TagParceiro {
+    parceiroId String
+    parceiro   Parceiro @relation(fields: [parceiroId], references: [id])
+    tagId      String
+    tag        Tag      @relation(fields: [tagId], references: [id])
+
+    @@id([parceiroId, tagId])
+    @@map("tags_parceiro")
+}
+
+model CheckList {
+    id                 String   @id @default(uuid())
+    preferenciaContato String   @map("preferencia_contato")
+    redesSociaisAtivas String   @map("redes_sociais_ativas")
+    canaisVendaOnline  String   @map("canais_venda_online")
+    qtdeSku            String   @map("qtde_sku")
+    pussuiErpHub       String   @map("possui_erp_hub")
+    tipoLogistica      String   @map("tipo_logistica")
+    percepcaoGeral     String   @map("percepcao_geral")
+    imagens            String
+    dataPrimeiraVisita DateTime @default(now()) @map("data_primeira_visita")
+    dataCriacao        DateTime @default(now()) @map("data_criacao")
+    agenteId           String
+    agente             Agente   @relation(fields: [agenteId], references: [id])
+    parceiroId         String
+    parceiro           Parceiro @relation(fields: [parceiroId], references: [id])
+    tag                Tag[]
+
+    TagCheckList TagCheckList[]
+    @@map("checklist")
+}
+
+model TagCheckList {
+    checklistId String
+    checklist   CheckList @relation(fields: [checklistId], references: [id])
+    tagId       String
+    tag         Tag       @relation(fields: [tagId], references: [id])
+
+    @@id([checklistId, tagId])
+    @@map("tags_checklist")
+}
